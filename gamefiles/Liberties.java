@@ -1,5 +1,3 @@
-package go.web.demo.gamefiles;
-
 class Liberties {
     private Stone[][] gameBoard;
     private int boardHeight;

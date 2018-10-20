@@ -1,5 +1,3 @@
-package go.web.demo.gamefiles;
-
 class Kick {
 
     private int boardHeight;

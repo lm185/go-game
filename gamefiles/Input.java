@@ -1,5 +1,3 @@
-package go.web.demo.gamefiles;
-
 import java.util.Scanner;
 
 class Input {
