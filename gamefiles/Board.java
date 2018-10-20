@@ -1,5 +1,3 @@
-package go.web.demo.gamefiles;
-
 class Board {
     private Stone[][] gameBoard;
     private boolean isCurrentPlayerWhite = false;

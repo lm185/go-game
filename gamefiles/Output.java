@@ -1,5 +1,3 @@
-package go.web.demo.gamefiles;
-
 class Output {
     static void draw(Stone[][] brett) {
         int boardHeight = brett.length;
