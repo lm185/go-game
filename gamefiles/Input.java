@@ -28,25 +28,15 @@ class Input {
 		return -1;
 	}
 
-    private int readRow() {
-		System.out.println("Zeile?");
-		int row = scanInput();
-		while(!isInBorder(row)){
-			System.out.println("Invalid Input\n Zeile?");
-	        row = scanInput();
+    private int readInput(String hint) {
+		System.out.println(hint);
+		int input = scanInput();
+		while(!isInBorder(input)){
+			System.out.println("Invalid Input\n" + hint);
+	        input = scanInput();
 		}
-		return row;
+		return input;
     }
-
-	private int readColumn() {
-		System.out.println("Spalte?");
-		int column = scanInput();
-		while(!isInBorder(column)){
-			System.out.println("Invalid Input\n Spalte?");
-	        column = scanInput();
-		}
-		return column;
-	}
 
 	private boolean isInBorder(int input) {
         if(input >= boardHeight || input < 0) {
@@ -58,9 +48,9 @@ class Input {
     private int[] isMoveValid() {
 		int row, column;
         do{
-			row = readRow();
+			row = readInput("Zeile?");
 
-			column = readColumn();
+			column = readInput("Spalte?");
 
 			if(gameBoard[row][column] != null)
 				System.out.println("Invalid Move");
