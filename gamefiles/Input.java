@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.lang.String;
 
 class Input {
     private final Scanner scanner;
@@ -11,58 +12,62 @@ class Input {
         this.boardHeight = boardSize.getSize();
         this.gameBoard = new Stone[boardHeight][boardHeight];
     }
+
     int[] getRowAndColumn() {
-        return isMoveValid(readRow(), readColumn());
+        return isMoveValid();
     }
+
+	private int scanInput(){
+		String input = scanner.nextLine();
+		if(input.length() <= 0){
+			return -1;
+		}
+		if(input.matches("^[0-9]*$")){
+			return Integer.parseInt(input);
+		}
+		return -1;
+	}
 
     private int readRow() {
-        System.out.println("Zeile?");
-        int row = scanner.nextInt();
-        row = checkRow(row);
-        return row;
+		System.out.println("Zeile?");
+		int row = scanInput();
+		while(!isInBorder(row)){
+			System.out.println("Invalid Input\n Zeile?");
+	        row = scanInput();
+		}
+		return row;
     }
 
-    private int readColumn() {
-        System.out.println("Spalte?");
-        int column = scanner.nextInt();
-        column = checkColumn(column);
-        return column;
-    }
+	private int readColumn() {
+		System.out.println("Spalte?");
+		int column = scanInput();
+		while(!isInBorder(column)){
+			System.out.println("Invalid Input\n Spalte?");
+	        column = scanInput();
+		}
+		return column;
+	}
 
-    private int[] isMoveValid(int row, int column) {
-        int[] out = new int[2];
-        while (gameBoard[row][column] != null)
-        {
-            System.out.println("Invalid Move");
-            row = readRow();
-
-            System.out.println("Invalid Move");
-            column = readColumn();
+	private boolean isInBorder(int input) {
+        if(input >= boardHeight || input < 0) {
+            return false;
         }
-
-        out[0] = row;
-        out[1] = column;
-        return out;
-
+        return true;
     }
 
-    private int checkRow(int row) {
-        while (row >= boardHeight || row < 0) {
-            System.out.println("Invalid Move");
-            System.out.println("Zeile?");
-            row = scanner.nextInt();
+    private int[] isMoveValid() {
+		int row, column;
+        do{
+			row = readRow();
 
-        }
-        return row;
-    }
+			column = readColumn();
 
-    private int checkColumn(int column) {
-        while (column >= boardHeight || column < 0) {
-            System.out.println("Invalid Move");
-            System.out.println("Spalte?");
-            column = scanner.nextInt();
+			if(gameBoard[row][column] != null)
+				System.out.println("Invalid Move");
+			else
+				break;
+        }while(true);
 
-        }
-        return column;
+        return new int[] {row, column};
     }
 }
