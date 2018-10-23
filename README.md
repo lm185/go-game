@@ -2,8 +2,7 @@
 
 Simple Command Line Based GO-Game
 
-Features TODO:
-
--	End Game Event
--	GUI
--	Javascript Based Web App
+## To-dos
+- [ ] Add an End Game Event.
+- [ ] Implement a GUI.
+- [ ] Implement this game as a Javascript based Web App
