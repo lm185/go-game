@@ -4,6 +4,6 @@ Simple Command Line Based GO-Game
 
 Features TODO:
 
--	End Game
+-	End Game Event
 -	GUI
--	Web App Based
+-	Javascript Based Web App
