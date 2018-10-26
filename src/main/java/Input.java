@@ -52,9 +52,13 @@ class Input {
         do {
             row = readInput("Row?");
 
+            if (row == -1337) {
+                return new int[]{-1337, -1337};
+            }
+
             column = readInput("Column?");
 
-            if (row == -1337 || column == -1337) {
+            if (column == -1337) {
                 return new int[]{-1337, -1337};
             }
             if (gameBoard[row][column] != null)

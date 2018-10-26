@@ -18,6 +18,12 @@ class Board {
 
     void play() {
         for (int i = 0; i < 99999999; i++) {
+            if(i == 0){
+                System.out.println("Enter column and row to place a stone");
+                System.out.println("Entering 'pass' will skip your turn");
+                System.out.println("If both players pass the game ends");
+                System.out.println();
+            }
             int[] rowAndColumn = input.getRowAndColumn();
             int row = rowAndColumn[0];
             int column = rowAndColumn[1];
