@@ -8,8 +8,7 @@ class Input {
 
     Input(Scanner scanner) {
         this.scanner = scanner;
-        BoardSize boardSize = new BoardSize(scanner);
-        this.boardHeight = boardSize.getSize();
+        this.boardHeight = getSize();
         this.gameBoard = new Stone[boardHeight][boardHeight];
     }
 
@@ -17,47 +16,59 @@ class Input {
         return isMoveValid();
     }
 
-	private int scanInput(){
-		String input = scanner.nextLine();
-		if(input.length() <= 0){
-			return -1;
-		}
-		if(input.matches("^[0-9]*$")){
-			return Integer.parseInt(input);
-		}
-		return -1;
-	}
-
-    private int readInput(String hint) {
-		System.out.println(hint);
-		int input = scanInput();
-		while(!isInBorder(input)){
-			System.out.println("Invalid Input\n" + hint);
-	        input = scanInput();
-		}
-		return input;
+    private int scanInput() {
+        String input = scanner.nextLine();
+        if (input.length() <= 0) {
+            return -1;
+        }
+        if (input.matches("^[0-9]*$")) {
+            return Integer.parseInt(input);
+        }
+        return -1;
     }
 
-	private boolean isInBorder(int input) {
-        if(input >= boardHeight || input < 0) {
+    private int readInput(String hint) {
+        System.out.println(hint);
+        int input = scanInput();
+        while (!isInBorder(input)) {
+            System.out.println("Invalid Input\n" + hint);
+            input = scanInput();
+        }
+        return input;
+    }
+
+    private boolean isInBorder(int input) {
+        if (input >= boardHeight || input < 0) {
             return false;
         }
         return true;
     }
 
     private int[] isMoveValid() {
-		int row, column;
-        do{
-			row = readInput("Zeile?");
+        int row, column;
+        do {
+            row = readInput("Row?");
 
-			column = readInput("Spalte?");
+            column = readInput("Column?");
 
-			if(gameBoard[row][column] != null)
-				System.out.println("Invalid Move");
-			else
-				break;
-        }while(true);
+            if (gameBoard[row][column] != null)
+                System.out.println("Invalid Move");
+            else
+                break;
+        } while (true);
 
-        return new int[] {row, column};
+        return new int[]{row, column};
+    }
+
+    private int getSize() {
+        System.out.println("Board Size?");
+        int n = scanner.nextInt();
+        while (n <= 0) {
+            System.out.println("Please enter a positive Integer Value");
+            n = scanner.nextInt();
+        }
+        scanner.nextLine();
+        System.out.println();
+        return n;
     }
 }
