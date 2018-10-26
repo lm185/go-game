@@ -90,10 +90,9 @@ class Board {
     }
 
     void addTerritoryPoints() {
-        Territory white = new Territory(gameBoard);
-        this.pointsWhite += white.getPointsWhite();
-        Territory black = new Territory(gameBoard);
-        this.pointsBlack += black.getPointsBlack();
+        Territory territory = new Territory(gameBoard);
+        this.pointsWhite += territory.getPointsWhite();
+        this.pointsBlack += territory.getPointsBlack();
     }
 
     void draw() {

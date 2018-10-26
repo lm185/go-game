@@ -16,6 +16,7 @@ class Territory {
     }
 
     int getPointsWhite() {
+        resetIsFieldCounted();
         int pointsWhite = 0;
         for (int i = 0; i < boardHeight; i++) {
             for (int j = 0; j < boardHeight; j++) {
@@ -31,6 +32,7 @@ class Territory {
     }
 
     int getPointsBlack() {
+        resetIsFieldCounted();
         int pointsBlack = 0;
         for (int i = 0; i < boardHeight; i++) {
             for (int j = 0; j < boardHeight; j++) {
@@ -116,6 +118,14 @@ class Territory {
             }
         }
         return territoryFields;
+    }
+
+    private void resetIsFieldCounted() {
+        for (int i = 0; i < boardHeight; i++) {
+            for (int j = 0; j < boardHeight; j++) {
+                isFieldCounted[i][j] = false;
+            }
+        }
     }
 
     private void resetMarkedTerritory() {
