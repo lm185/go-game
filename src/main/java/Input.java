@@ -72,10 +72,10 @@ class Input {
 
     private int getSize() {
         System.out.println("Board Size?");
-        int n = n = scanInput();
+        int n = scanInput();
         while (n <= 0) {
           System.out.println("Please enter a positive Integer Value");
-          n = n = scanInput();
+          n = scanInput();
         }
         System.out.println();
         return n;
