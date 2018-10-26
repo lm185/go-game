@@ -1,5 +1,3 @@
-package go.web.demo.gamefiles;
-
 import org.junit.Test;
 
 public class OutputTest {

@@ -1,19 +1,15 @@
-package go.web.demo.gamefiles;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-
-import static org.junit.Assert.*;
 
 public class BoardTest {
     private Board board;
+
     @Before
     public void setUp(){
         this.board = new Board(9);
     }
+
     @Test
     public void withInput(){
        //TODO
