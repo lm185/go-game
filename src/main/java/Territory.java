@@ -47,18 +47,28 @@ class Territory {
 
     boolean isTerritoryWhite() {
         /* Territory only belongs to a player, if the entire border is made out of his stones */
+        if (countCurrentTerritoryFields() == 0) {
+            return false;
+        }
         for (int i = 0; i < boardHeight; i++) {
             for (int j = 0; j < boardHeight; j++) {
-                if (isTerritoryBorder[i][j] && !gameBoard[i][j].isStoneWhite()) return false;
+                if (isTerritoryBorder[i][j] && !gameBoard[i][j].isStoneWhite()) {
+                    return false;
+                }
             }
         }
         return true;
     }
 
     boolean isTerritoryBlack() {
+        if (countCurrentTerritoryFields() == 0) {
+            return false;
+        }
         for (int i = 0; i < boardHeight; i++) {
             for (int j = 0; j < boardHeight; j++) {
-                if (isTerritoryBorder[i][j] && gameBoard[i][j].isStoneWhite()) return false;
+                if (isTerritoryBorder[i][j] && gameBoard[i][j].isStoneWhite()) {
+                    return false;
+                }
             }
         }
         return true;
@@ -80,7 +90,9 @@ class Territory {
 
     private boolean isFieldPartOfTerritory(int row, int column) {
         try {
-            if (gameBoard[row][column] == null && !isPartOfMarkedTerritory[row][column]) return true;
+            if (gameBoard[row][column] == null && !isPartOfMarkedTerritory[row][column]) {
+                return true;
+            }
         } catch (ArrayIndexOutOfBoundsException ignored) {
         }
         return false;
@@ -98,7 +110,9 @@ class Territory {
         int territoryFields = 0;
         for (int i = 0; i < boardHeight; i++) {
             for (int j = 0; j < boardHeight; j++) {
-                if (isPartOfMarkedTerritory[i][j]) territoryFields++;
+                if (isPartOfMarkedTerritory[i][j]) {
+                    territoryFields++;
+                }
             }
         }
         return territoryFields;

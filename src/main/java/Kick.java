@@ -32,8 +32,9 @@ class Kick {
 
     private boolean isAdjacentStoneOpponent(int row, int column, boolean isCurrentPlayerWhite) {
         try {
-            if (gameBoard[row][column] != null && isCurrentPlayerWhite != gameBoard[row][column].isStoneWhite())
+            if (gameBoard[row][column] != null && isCurrentPlayerWhite != gameBoard[row][column].isStoneWhite()) {
                 return true;
+            }
         } catch (ArrayIndexOutOfBoundsException ignored) {
         }
         return false;
@@ -49,7 +50,9 @@ class Kick {
 
     private void kickGroupIfDead(int row, int column) {
         group.findGroup(row, column);
-        if (!group.isGroupAlive()) kickSelectedGroup();
+        if (!group.isGroupAlive()) {
+            kickSelectedGroup();
+        }
         group.resetGroupSelection();
     }
 

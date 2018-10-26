@@ -111,7 +111,26 @@ public class BoardTest {
     }
 
     @Test
-    public void twoFieldTerritory() {
+    public void twoFieldTerritoryWhite() {
+        Stone[][] fakeBoard = new Stone[9][9];
+        fakeBoard[0][0] = new Stone(false);
+
+        fakeBoard[3][4] = new Stone(true);
+        fakeBoard[3][5] = new Stone(true);
+        fakeBoard[5][4] = new Stone(true);
+        fakeBoard[5][5] = new Stone(true);
+        fakeBoard[4][3] = new Stone(true);
+        fakeBoard[4][6] = new Stone(true);
+
+        board.setGameBoard(fakeBoard);
+        board.addTerritoryPoints();
+        board.draw();
+
+        Assert.assertEquals(2, board.getPointsWhite());
+    }
+
+    @Test
+    public void twoFieldTerritoryBlack() {
         Stone[][] fakeBoard = new Stone[9][9];
         fakeBoard[0][0] = new Stone(true);
 
