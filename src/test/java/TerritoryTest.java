@@ -229,4 +229,12 @@ public class TerritoryTest {
 
         Assert.assertEquals(2, territory.getPointsBlack());
     }
+
+    @Test
+    public void noStonePlaced() {
+        Stone[][] fakeBoard = new Stone[9][9];
+        Territory territory = new Territory(fakeBoard);
+        Assert.assertEquals(0, territory.getPointsBlack());
+        Assert.assertEquals(0, territory.getPointsWhite());
+    }
 }

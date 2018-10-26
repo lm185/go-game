@@ -13,17 +13,18 @@ class Kick {
         this.group = new Group(gameBoard);
     }
 
-    void findAndKickDeadStones(int row, int column, boolean isCurrentPlayerWhite) {
-        kickAllAdjacentDeadGroups(row, column, isCurrentPlayerWhite);
+    void findAndKickDeadStones(int row, int column) {
+        kickAllAdjacentDeadGroups(row, column);
         removeAllDeadGroups();
     }
 
-    void kickAllAdjacentDeadGroups(int row, int column, boolean isCurrentPlayerWhite) {
+    void kickAllAdjacentDeadGroups(int row, int column) {
         /*
          * Checks adjacent fields. If they are from the opposite player and the group is dead they are kicked.
          * This is to ensure kick integrity. If a player A puts a stone at a point where either the stones of
          * player A or his opponents group is kicked, the opponent stones need to be kicked.
          */
+        boolean isCurrentPlayerWhite = gameBoard[row][column].isStoneWhite();
         if (isAdjacentStoneOpponent(row - 1, column, isCurrentPlayerWhite)) kickGroupIfDead(row - 1, column);
         if (isAdjacentStoneOpponent(row + 1, column, isCurrentPlayerWhite)) kickGroupIfDead(row + 1, column);
         if (isAdjacentStoneOpponent(row, column + 1, isCurrentPlayerWhite)) kickGroupIfDead(row, column + 1);

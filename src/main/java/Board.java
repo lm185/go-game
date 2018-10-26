@@ -17,13 +17,12 @@ class Board {
     }
 
     void play() {
+        System.out.println("Enter column and row to place a stone");
+        System.out.println("Entering 'pass' will skip your turn");
+        System.out.println("If both players pass the game ends");
+        System.out.println();
+
         for (int i = 0; i < 99999999; i++) {
-            if(i == 0){
-                System.out.println("Enter column and row to place a stone");
-                System.out.println("Entering 'pass' will skip your turn");
-                System.out.println("If both players pass the game ends");
-                System.out.println();
-            }
             int[] rowAndColumn = input.getRowAndColumn();
             int row = rowAndColumn[0];
             int column = rowAndColumn[1];
@@ -44,6 +43,8 @@ class Board {
     }
 
     private void gameOver() {
+        addTerritoryPoints();
+
         System.out.println();
         System.out.println("Game Over");
         System.out.println("White has " + this.pointsWhite + " points");
@@ -58,6 +59,7 @@ class Board {
             System.out.println("Tie");
         }
     }
+
     private boolean isGameOver(int[] rowAndColumn) {
         if (doesPlayerPass(rowAndColumn)) {
             this.passes++;
@@ -83,7 +85,7 @@ class Board {
     private void kick(int row, int column) {
         Kick kick = new Kick(gameBoard);
 
-        kick.findAndKickDeadStones(row, column, isCurrentPlayerWhite);
+        kick.findAndKickDeadStones(row, column);
 
         pointsWhite += kick.getPointsWhite();
         pointsBlack += kick.getPointsBlack();

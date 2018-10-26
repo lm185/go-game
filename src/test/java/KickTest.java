@@ -67,7 +67,7 @@ public class KickTest {
         fakeBoard[4][6] = new Stone(false);
         Kick kick = new Kick(fakeBoard);
 
-        kick.kickAllAdjacentDeadGroups(3, 5, false);
+        kick.kickAllAdjacentDeadGroups(3, 5);
         kick.removeAllDeadGroups();
 
         Assert.assertNotNull(fakeBoard[4][4]);
@@ -86,7 +86,7 @@ public class KickTest {
         fakeBoard[1][1] = new Stone(false);
         Kick kick = new Kick(fakeBoard);
 
-        kick.kickAllAdjacentDeadGroups(0, 0, false);
+        kick.kickAllAdjacentDeadGroups(0, 0);
         kick.removeAllDeadGroups();
 
         Assert.assertEquals(1, kick.getPointsBlack());
@@ -127,7 +127,7 @@ public class KickTest {
         fakeBoard[2][8] = new Stone(true);
         Kick kick = new Kick(fakeBoard);
 
-        kick.kickAllAdjacentDeadGroups(0, 5, true);
+        kick.kickAllAdjacentDeadGroups(0, 5);
         kick.removeAllDeadGroups();
 
         Assert.assertEquals(0, kick.getPointsBlack());
@@ -166,7 +166,7 @@ public class KickTest {
         fakeBoard[2][8] = new Stone(true);
         Kick kick = new Kick(fakeBoard);
 
-        kick.findAndKickDeadStones(0, 5, true);
+        kick.findAndKickDeadStones(0, 5);
 
         Assert.assertEquals(0, kick.getPointsBlack());
         Assert.assertEquals(9, kick.getPointsWhite());
@@ -212,7 +212,7 @@ public class KickTest {
         fakeBoard[4][6] = new Stone(false);
         Kick kick = new Kick(fakeBoard);
 
-        kick.findAndKickDeadStones(0, 2, true);
+        kick.findAndKickDeadStones(0, 2);
 
         Assert.assertEquals(9,kick.getPointsWhite());
         Assert.assertEquals(2,kick.getPointsBlack());

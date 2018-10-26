@@ -49,7 +49,7 @@ class Territory {
 
     boolean isTerritoryWhite() {
         /* Territory only belongs to a player, if the entire border is made out of his stones */
-        if (countCurrentTerritoryFields() == 0) {
+        if (countCurrentTerritoryFields() == 0 || getBorderLength() == 0) {
             return false;
         }
         for (int i = 0; i < boardHeight; i++) {
@@ -63,7 +63,7 @@ class Territory {
     }
 
     boolean isTerritoryBlack() {
-        if (countCurrentTerritoryFields() == 0) {
+        if (countCurrentTerritoryFields() == 0 || getBorderLength() == 0) {
             return false;
         }
         for (int i = 0; i < boardHeight; i++) {
@@ -154,5 +154,17 @@ class Territory {
 
     boolean[][] getIsFieldCounted() {
         return isFieldCounted;
+    }
+
+    int getBorderLength() {
+        int count = 0;
+        for (int i = 0; i < boardHeight; i++) {
+            for (int j = 0; j < boardHeight; j++) {
+                if (isTerritoryBorder[i][j]) {
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 }

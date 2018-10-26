@@ -8,6 +8,5 @@ public class PlayGO {
 
         board.draw();
         board.play();
-        board.addTerritoryPoints();
     }
 }
