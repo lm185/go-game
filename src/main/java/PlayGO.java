@@ -7,7 +7,7 @@ public class PlayGO {
         Board board = new Board(input);
 
         board.draw();
-        board.play(10);
+        board.play();
         board.addTerritoryPoints();
     }
 }

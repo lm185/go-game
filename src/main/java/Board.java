@@ -4,6 +4,7 @@ class Board {
     private int pointsWhite = 0;
     private int pointsBlack = 0;
     private final Input input;
+    private int passes = 0;
 
     Board(int boardHeight) { //For Testing Purpose
         this.gameBoard = new Stone[boardHeight][boardHeight];
@@ -15,18 +16,34 @@ class Board {
         this.gameBoard = input.gameBoard;
     }
 
-    void play(int numberOfMoves) {
-        for (int i = 0; i < numberOfMoves; i++) {
+    void play() {
+        for (int i = 0; i < 99999999; i++) {
             int[] rowAndColumn = input.getRowAndColumn();
             int row = rowAndColumn[0];
             int column = rowAndColumn[1];
 
-            move(row, column);
-            kick(row, column);
+            if (isGameOver(rowAndColumn)) {
+                break;
+            }
+            if (!doesPlayerPass(rowAndColumn)) {
+                move(row, column);
+                kick(row, column);
+            } else {
+                System.out.println("Player passed");
+            }
             draw();
             nextPlayer();
         }
         System.out.println("Spielende erreicht");
+    }
+
+    private boolean isGameOver(int[] rowAndColumn) {
+        if (doesPlayerPass(rowAndColumn)) {
+            this.passes++;
+        } else {
+            this.passes = 0;
+        }
+        return this.passes == 2;
     }
 
     void testPlay(int row, int column, boolean isCurrentPlayerWhite) {
@@ -49,6 +66,10 @@ class Board {
 
         pointsWhite += kick.getPointsWhite();
         pointsBlack += kick.getPointsBlack();
+    }
+
+    private boolean doesPlayerPass(int[] rowAndColumn) {
+        return rowAndColumn[0] == -1337 || rowAndColumn[1] == -1337;
     }
 
     void addTerritoryPoints() {

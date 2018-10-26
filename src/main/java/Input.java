@@ -18,6 +18,9 @@ class Input {
 
     private int scanInput() {
         String input = scanner.nextLine();
+        if (input.equals("pass")) { // Checks if the player actually wants to make a move or pass
+            return -1337;
+        }
         if (input.length() <= 0) {
             return -1;
         }
@@ -30,6 +33,9 @@ class Input {
     private int readInput(String hint) {
         System.out.println(hint);
         int input = scanInput();
+        if (input == -1337) {
+            return -1337;
+        }
         while (!isInBorder(input)) {
             System.out.println("Invalid Input\n" + hint);
             input = scanInput();
@@ -38,10 +44,7 @@ class Input {
     }
 
     private boolean isInBorder(int input) {
-        if (input >= boardHeight || input < 0) {
-            return false;
-        }
-        return true;
+        return input < boardHeight && input >= 0;
     }
 
     private int[] isMoveValid() {
@@ -51,6 +54,9 @@ class Input {
 
             column = readInput("Column?");
 
+            if (row == -1337 || column == -1337) {
+                return new int[]{-1337, -1337};
+            }
             if (gameBoard[row][column] != null)
                 System.out.println("Invalid Move");
             else
