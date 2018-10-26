@@ -210,11 +210,23 @@ public class TerritoryTest {
         Stone[][] foo = new Stone[9][9];
         foo[3][4] = new Stone(false);
         Territory territory = new Territory(foo);
-        Board bar = new Board(9);
-
-        bar.setGameBoard(foo);
 
         Assert.assertEquals(80,territory.getPointsBlack());
     }
 
+    @Test
+    public void twoFiledTerritory() {
+        Stone[][] fakeBoard = new Stone[9][9];
+        fakeBoard[0][0] = new Stone(true);
+        fakeBoard[3][4] = new Stone(false);
+        fakeBoard[3][5] = new Stone(false);
+        fakeBoard[5][4] = new Stone(false);
+        fakeBoard[5][5] = new Stone(false);
+        fakeBoard[4][3] = new Stone(false);
+        fakeBoard[4][6] = new Stone(false);
+
+        Territory territory = new Territory(fakeBoard);
+
+        Assert.assertEquals(2, territory.getPointsBlack());
+    }
 }

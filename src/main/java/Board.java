@@ -40,9 +40,24 @@ class Board {
             draw();
             nextPlayer();
         }
-        System.out.println("Spielende erreicht");
+        gameOver();
     }
 
+    private void gameOver() {
+        System.out.println();
+        System.out.println("Game Over");
+        System.out.println("White has " + this.pointsWhite + " points");
+        System.out.println("Black has " + this.pointsBlack + " points");
+        System.out.println();
+
+        if (this.pointsBlack > this.pointsWhite) {
+            System.out.println("Black won");
+        } else if (this.pointsBlack < this.pointsWhite) {
+            System.out.println("White won");
+        } else {
+            System.out.println("Tie");
+        }
+    }
     private boolean isGameOver(int[] rowAndColumn) {
         if (doesPlayerPass(rowAndColumn)) {
             this.passes++;
@@ -74,10 +89,6 @@ class Board {
         pointsBlack += kick.getPointsBlack();
     }
 
-    private boolean doesPlayerPass(int[] rowAndColumn) {
-        return rowAndColumn[0] == -1337 || rowAndColumn[1] == -1337;
-    }
-
     void addTerritoryPoints() {
         Territory territory = new Territory(gameBoard);
         this.pointsWhite += territory.getPointsWhite();
@@ -103,6 +114,10 @@ class Board {
 
     int getPointsWhite() {
         return pointsWhite;
+    }
+
+    private boolean doesPlayerPass(int[] rowAndColumn) {
+        return rowAndColumn[0] == -1337 || rowAndColumn[1] == -1337;
     }
 
     int getPointsBlack() {

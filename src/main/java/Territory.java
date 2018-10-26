@@ -20,7 +20,9 @@ class Territory {
         for (int i = 0; i < boardHeight; i++) {
             for (int j = 0; j < boardHeight; j++) {
                 markTerritory(i, j);
-                if (isTerritoryWhite()) pointsWhite += countCurrentTerritoryFields();
+                if (isTerritoryWhite()) {
+                    pointsWhite += countCurrentTerritoryFields();
+                }
                 resetMarkedTerritory();
                 resetTerritoryBorder();
             }
@@ -33,7 +35,9 @@ class Territory {
         for (int i = 0; i < boardHeight; i++) {
             for (int j = 0; j < boardHeight; j++) {
                 markTerritory(i, j);
-                if (isTerritoryBlack()) pointsBlack += countCurrentTerritoryFields();
+                if (isTerritoryBlack()) {
+                    pointsBlack += countCurrentTerritoryFields();
+                }
                 resetMarkedTerritory();
                 resetTerritoryBorder();
             }

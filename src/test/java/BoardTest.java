@@ -6,13 +6,13 @@ public class BoardTest {
     private Board board;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         this.board = new Board(9);
     }
 
     @Test
-    public void withInput(){
-       //TODO
+    public void withInput() {
+        //TODO
     }
 
     @Test
@@ -56,8 +56,8 @@ public class BoardTest {
 
         board.setGameBoard(fakeBoard);
         board.draw();
-        board.testPlay(0,8,true);
-        Assert.assertEquals(2,board.getPointsBlack());
+        board.testPlay(0, 8, true);
+        Assert.assertEquals(2, board.getPointsBlack());
     }
 
     @Test
@@ -101,19 +101,20 @@ public class BoardTest {
 
         board.setGameBoard(fakeBoard);
         board.draw();
-        board.testPlay(0,8,true);
-        Assert.assertEquals(2,board.getPointsBlack());
+        board.testPlay(0, 8, true);
+        Assert.assertEquals(2, board.getPointsBlack());
 
         board.addTerritoryPoints();
 
-        Assert.assertEquals(18,board.getPointsWhite());
-        Assert.assertEquals(4,board.getPointsBlack());
+        Assert.assertEquals(18, board.getPointsWhite());
+        Assert.assertEquals(4, board.getPointsBlack());
     }
+
     @Test
-    public void twoFieldTerritory(){
+    public void twoFieldTerritory() {
         Stone[][] fakeBoard = new Stone[9][9];
-        fakeBoard[4][4] = new Stone(true);
-        fakeBoard[4][5] = new Stone(true);
+        fakeBoard[0][0] = new Stone(true);
+
         fakeBoard[3][4] = new Stone(false);
         fakeBoard[3][5] = new Stone(false);
         fakeBoard[5][4] = new Stone(false);
@@ -121,5 +122,10 @@ public class BoardTest {
         fakeBoard[4][3] = new Stone(false);
         fakeBoard[4][6] = new Stone(false);
 
+        board.setGameBoard(fakeBoard);
+        board.addTerritoryPoints();
+        board.draw();
+
+        Assert.assertEquals(2, board.getPointsBlack());
     }
 }
