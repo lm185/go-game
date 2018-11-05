@@ -156,7 +156,7 @@ class Territory {
         return isFieldCounted;
     }
 
-    int getBorderLength() {
+    private int getBorderLength() {
         int count = 0;
         for (int i = 0; i < boardHeight; i++) {
             for (int j = 0; j < boardHeight; j++) {
