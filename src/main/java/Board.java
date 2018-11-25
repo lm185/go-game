@@ -22,7 +22,7 @@ class Board {
         System.out.println("If both players pass the game ends");
         System.out.println();
 
-        for (int i = 0; i < 99999999; i++) {
+        while (true) {
             int[] rowAndColumn = input.getRowAndColumn();
             int row = rowAndColumn[0];
             int column = rowAndColumn[1];
@@ -39,6 +39,7 @@ class Board {
             draw();
             nextPlayer();
         }
+
         gameOver();
     }
 
