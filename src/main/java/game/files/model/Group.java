@@ -1,5 +1,8 @@
 package game.files.model;
 
+import lombok.Data;
+
+@Data
 public class Group {
     private Stone[][] gameBoard;
     private int boardHeight;
