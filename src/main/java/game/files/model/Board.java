@@ -32,7 +32,7 @@ public class Board {
         System.out.println();
 
         while (true) {
-            int[] rowAndColumn = input.getRowAndColumn();
+            int[] rowAndColumn = input.findRowAndColumn();
             int row = rowAndColumn[0];
             int column = rowAndColumn[1];
 

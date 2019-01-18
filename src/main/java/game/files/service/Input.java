@@ -14,13 +14,10 @@ public class Input {
 
     public Input(Scanner scanner) {
         this.scanner = scanner;
-        this.boardHeight = getSize();
+        this.boardHeight = findSize();
         this.gameBoard = new Stone[boardHeight][boardHeight];
     }
 
-    public int[] getRowAndColumn() {
-        return isMoveValid();
-    }
 
     private int scanInput() {
         String input = scanner.nextLine();
@@ -53,7 +50,7 @@ public class Input {
         return input < boardHeight && input >= 0;
     }
 
-    private int[] isMoveValid() {
+    public int[] findRowAndColumn() {
         int row, column;
         do {
             row = readInput("Row?");
@@ -76,7 +73,7 @@ public class Input {
         return new int[]{row, column};
     }
 
-    private int getSize() {
+    private int findSize() {
         System.out.println("Board Size?");
         int n = scanInput();
         while (n <= 0) {
