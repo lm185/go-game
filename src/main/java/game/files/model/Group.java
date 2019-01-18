@@ -1,15 +1,17 @@
-class Group {
+package game.files.model;
+
+public class Group {
     private Stone[][] gameBoard;
     private int boardHeight;
     private Liberties liberties;
 
-    Group(Stone[][] gameBoard) {
+    public Group(Stone[][] gameBoard) {
         this.gameBoard = gameBoard;
         this.boardHeight = gameBoard.length;
         this.liberties = new Liberties(gameBoard);
     }
 
-    void findGroup(int row, int column) {
+    public void findGroup(int row, int column) {
         if (gameBoard[row][column] != null) {
             gameBoard[row][column].markAsPartOfGroup();
             boolean isGroupWhite = gameBoard[row][column].isStoneWhite();
@@ -30,7 +32,7 @@ class Group {
         return false;
     }
 
-    boolean isGroupAlive() {
+    public boolean isGroupAlive() {
         int libertiesGroup = 0;
         int connectionsGroup = 0;
 
@@ -49,7 +51,7 @@ class Group {
         return libertiesGroup != 0;
     }
 
-    void resetGroupSelection() {
+    public void resetGroupSelection() {
         for (int i = 0; i < boardHeight; i++) {
             for (int j = 0; j < boardHeight; j++) {
                 if (gameBoard[i][j] != null)

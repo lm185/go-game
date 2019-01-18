@@ -1,4 +1,10 @@
-class Territory {
+package game.files.service;
+
+import game.files.model.Stone;
+import lombok.Data;
+
+@Data
+public class Territory {
 
     private final int boardHeight;
     private Stone[][] gameBoard;
@@ -7,7 +13,7 @@ class Territory {
     private boolean[][] isTerritoryBorder;
 
 
-    Territory(Stone[][] gameBoard) {
+    public Territory(Stone[][] gameBoard) {
         this.boardHeight = gameBoard.length;
         this.gameBoard = gameBoard;
         this.isFieldCounted = new boolean[boardHeight][boardHeight];
@@ -15,7 +21,7 @@ class Territory {
         this.isTerritoryBorder = new boolean[boardHeight][boardHeight];
     }
 
-    int getPointsWhite() {
+    public int getPointsWhite() {
         resetIsFieldCounted();
         int pointsWhite = 0;
         for (int i = 0; i < boardHeight; i++) {
@@ -31,7 +37,7 @@ class Territory {
         return pointsWhite;
     }
 
-    int getPointsBlack() {
+    public int getPointsBlack() {
         resetIsFieldCounted();
         int pointsBlack = 0;
         for (int i = 0; i < boardHeight; i++) {
@@ -48,7 +54,7 @@ class Territory {
     }
 
     boolean isTerritoryWhite() {
-        /* Territory only belongs to a player, if the entire border is made out of his stones */
+        /* game.files.service.Territory only belongs to a player, if the entire border is made out of his stones */
         if (countCurrentTerritoryFields() == 0 || getBorderLength() == 0) {
             return false;
         }

@@ -1,3 +1,8 @@
+package game.files;
+
+import game.files.model.Board;
+import game.files.service.Input;
+
 import java.util.Scanner;
 
 public class PlayGO {

@@ -1,4 +1,13 @@
-class Board {
+package game.files.model;
+
+import game.files.service.Input;
+import game.files.service.Kick;
+import game.files.service.Output;
+import game.files.service.Territory;
+import lombok.Data;
+
+@Data
+public class Board {
     private Stone[][] gameBoard;
     private boolean isCurrentPlayerWhite = false;
     private int pointsWhite = 0;
@@ -6,17 +15,17 @@ class Board {
     private final Input input;
     private int passes = 0;
 
-    Board(int boardHeight) { //For Testing Purpose
+    public Board(int boardHeight) { //For Testing Purpose
         this.gameBoard = new Stone[boardHeight][boardHeight];
         this.input = null;
     }
 
-    Board(Input input) {
+    public Board(Input input) {
         this.input = input;
-        this.gameBoard = input.gameBoard;
+        this.gameBoard = input.getGameBoard();
     }
 
-    void play() {
+    public void play() {
         System.out.println("Enter column and row to place a stone");
         System.out.println("Entering 'pass' will skip your turn");
         System.out.println("If both players pass the game ends");
@@ -70,7 +79,7 @@ class Board {
         return this.passes == 2;
     }
 
-    void testPlay(int row, int column, boolean isCurrentPlayerWhite) {
+    public void testPlay(int row, int column, boolean isCurrentPlayerWhite) {
         this.isCurrentPlayerWhite = isCurrentPlayerWhite;
         move(row, column);
         kick(row, column);
@@ -92,13 +101,13 @@ class Board {
         pointsBlack += kick.getPointsBlack();
     }
 
-    void addTerritoryPoints() {
+    public void addTerritoryPoints() {
         Territory territory = new Territory(gameBoard);
         this.pointsWhite += territory.getPointsWhite();
         this.pointsBlack += territory.getPointsBlack();
     }
 
-    void draw() {
+    public void draw() {
         Output.draw(gameBoard);
     }
 
@@ -106,28 +115,11 @@ class Board {
         isCurrentPlayerWhite = !isCurrentPlayerWhite;
     }
 
-
     private void setStone(int row, int column) {
         gameBoard[row][column] = new Stone(isCurrentPlayerWhite);
     }
 
-    Stone[][] getGameBoard() {
-        return gameBoard;
-    }
-
-    int getPointsWhite() {
-        return pointsWhite;
-    }
-
     private boolean doesPlayerPass(int[] rowAndColumn) {
         return rowAndColumn[0] == -1337 || rowAndColumn[1] == -1337;
-    }
-
-    int getPointsBlack() {
-        return pointsBlack;
-    }
-
-    void setGameBoard(Stone[][] gameBoard) {
-        this.gameBoard = gameBoard;
     }
 }

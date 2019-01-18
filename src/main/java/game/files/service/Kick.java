@@ -1,4 +1,11 @@
-class Kick {
+package game.files.service;
+
+import game.files.model.Group;
+import game.files.model.Stone;
+import lombok.Data;
+
+@Data
+public class Kick {
 
     private int boardHeight;
     private Stone[][] gameBoard;
@@ -7,18 +14,18 @@ class Kick {
     private int pointsBlack = 0;
 
 
-    Kick(Stone[][] gameBoard) {
+    public Kick(Stone[][] gameBoard) {
         this.boardHeight = gameBoard.length;
         this.gameBoard = gameBoard;
         this.group = new Group(gameBoard);
     }
 
-    void findAndKickDeadStones(int row, int column) {
+    public void findAndKickDeadStones(int row, int column) {
         kickAllAdjacentDeadGroups(row, column);
         removeAllDeadGroups();
     }
 
-    void kickAllAdjacentDeadGroups(int row, int column) {
+    public void kickAllAdjacentDeadGroups(int row, int column) {
         /*
          * Checks adjacent fields. If they are from the opposite player and the group is dead they are kicked.
          * This is to ensure kick integrity. If a player A puts a stone at a point where either the stones of
@@ -41,7 +48,7 @@ class Kick {
         return false;
     }
 
-    void removeAllDeadGroups() {
+    public void removeAllDeadGroups() {
         for (int i = 0; i < boardHeight; i++) {
             for (int j = 0; j < boardHeight; j++) {
                 kickGroupIfDead(i, j);
@@ -71,13 +78,5 @@ class Kick {
 
     private void removeStone(int row, int column) {
         gameBoard[row][column] = null;
-    }
-
-    int getPointsWhite() {
-        return this.pointsWhite;
-    }
-
-    int getPointsBlack() {
-        return this.pointsBlack;
     }
 }

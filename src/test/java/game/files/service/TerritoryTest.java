@@ -1,11 +1,17 @@
+package game.files.service;
+
+import game.files.service.Territory;
+import game.files.model.Board;
+import game.files.model.Stone;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 public class TerritoryTest {
     private Board board;
+
     @Before
-    public void createBoard(){
+    public void createBoard() {
         this.board = new Board(9);
         Stone[][] fakeBoard = new Stone[9][9];
         fakeBoard[1][0] = new Stone(false);
@@ -49,6 +55,7 @@ public class TerritoryTest {
 
         this.board.setGameBoard(fakeBoard);
     }
+
     @Test
     public void whiteBorder() {
         Territory territory = new Territory(board.getGameBoard());
@@ -70,10 +77,11 @@ public class TerritoryTest {
         expectedTerritoryBorder[5][6] = true;
         expectedTerritoryBorder[5][7] = true;
 
-        territory.markTerritory(4,1);
+        territory.markTerritory(4, 1);
 
         Assert.assertEquals(expectedTerritoryBorder, territory.getIsTerritoryBorder());
     }
+
     @Test
     public void blackBorder() {
         Territory territory = new Territory(board.getGameBoard());
@@ -88,7 +96,7 @@ public class TerritoryTest {
         expectedTerritoryBorder[1][7] = true;
         expectedTerritoryBorder[1][8] = true;
 
-        territory.markTerritory(0,0);
+        territory.markTerritory(0, 0);
 
         Assert.assertEquals(expectedTerritoryBorder, territory.getIsTerritoryBorder());
     }
@@ -113,11 +121,12 @@ public class TerritoryTest {
         countedFields[4][6] = true;
         countedFields[4][7] = true;
 
-        territory.markTerritory(4,1);
+        territory.markTerritory(4, 1);
 
         Assert.assertEquals(expectedTerritory, territory.getIsPartOfMarkedTerritory());
         Assert.assertEquals(countedFields, territory.getIsFieldCounted());
     }
+
     @Test
     public void blackTerritory() {
         boolean[][] expectedTerritory = new boolean[9][9];
@@ -160,34 +169,35 @@ public class TerritoryTest {
         countedFields[8][7] = true;
         countedFields[8][8] = true;
 
-        territory.markTerritory(7,5);
+        territory.markTerritory(7, 5);
 
         Assert.assertEquals(expectedTerritory, territory.getIsPartOfMarkedTerritory());
         Assert.assertEquals(countedFields, territory.getIsFieldCounted());
     }
+
     @Test
     public void zoneIsWhite() {
         Territory territory = new Territory(board.getGameBoard());
 
-        territory.markTerritory(4,2);
+        territory.markTerritory(4, 2);
 
         Assert.assertTrue(territory.isTerritoryWhite());
     }
 
     @Test
-    public void zoneIsBlack(){
+    public void zoneIsBlack() {
         Territory territory = new Territory(board.getGameBoard());
 
-        territory.markTerritory(0,0);
+        territory.markTerritory(0, 0);
 
         Assert.assertTrue(territory.isTerritoryBlack());
     }
 
     @Test
-    public void nobodyOwnsZone(){
+    public void nobodyOwnsZone() {
         Territory territory = new Territory(board.getGameBoard());
 
-        territory.markTerritory(2,4);
+        territory.markTerritory(2, 4);
 
         Assert.assertFalse(territory.isTerritoryBlack());
         Assert.assertFalse(territory.isTerritoryWhite());
@@ -206,12 +216,12 @@ public class TerritoryTest {
     }
 
     @Test
-    public void blackOwnsEverything(){
+    public void blackOwnsEverything() {
         Stone[][] foo = new Stone[9][9];
         foo[3][4] = new Stone(false);
         Territory territory = new Territory(foo);
 
-        Assert.assertEquals(80,territory.getPointsBlack());
+        Assert.assertEquals(80, territory.getPointsBlack());
     }
 
     @Test

@@ -1,5 +1,9 @@
-class Output {
-    static void draw(Stone[][] brett) {
+package game.files.service;
+
+import game.files.model.Stone;
+
+public class Output {
+    public static void draw(Stone[][] brett) {
         int boardHeight = brett.length;
         System.out.print(" ");
         for (int i = 0; i < boardHeight; i++) { //Nummerierung der Spalten
@@ -27,7 +31,8 @@ class Output {
         }
         System.out.println();
     }
-    static void printCurrentPlayer(boolean isWhite) {
+
+    public static void printCurrentPlayer(boolean isWhite) {
         if (isWhite) System.out.println("Weiß ist am Zug");
         else System.out.println("Schwarz ist am Zug");
     }

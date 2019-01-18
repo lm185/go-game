@@ -1,18 +1,24 @@
+package game.files.service;
+
+import game.files.model.Stone;
+import lombok.Data;
+
 import java.util.Scanner;
 import java.lang.String;
 
-class Input {
+@Data
+public class Input {
     private final Scanner scanner;
     private final int boardHeight;
-    Stone[][] gameBoard;
+    private Stone[][] gameBoard;
 
-    Input(Scanner scanner) {
+    public Input(Scanner scanner) {
         this.scanner = scanner;
         this.boardHeight = getSize();
         this.gameBoard = new Stone[boardHeight][boardHeight];
     }
 
-    int[] getRowAndColumn() {
+    public int[] getRowAndColumn() {
         return isMoveValid();
     }
 
@@ -74,8 +80,8 @@ class Input {
         System.out.println("Board Size?");
         int n = scanInput();
         while (n <= 0) {
-          System.out.println("Please enter a positive Integer Value");
-          n = scanInput();
+            System.out.println("Please enter a positive Integer Value");
+            n = scanInput();
         }
         System.out.println();
         return n;

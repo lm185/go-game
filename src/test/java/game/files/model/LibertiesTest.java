@@ -1,3 +1,7 @@
+package game.files.model;
+
+import game.files.model.Liberties;
+import game.files.model.Stone;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

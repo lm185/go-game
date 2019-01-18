@@ -1,3 +1,7 @@
+package game.files.service;
+
+import game.files.service.Kick;
+import game.files.model.Stone;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -214,7 +218,7 @@ public class KickTest {
 
         kick.findAndKickDeadStones(0, 2);
 
-        Assert.assertEquals(9,kick.getPointsWhite());
-        Assert.assertEquals(2,kick.getPointsBlack());
+        Assert.assertEquals(9, kick.getPointsWhite());
+        Assert.assertEquals(2, kick.getPointsBlack());
     }
 }

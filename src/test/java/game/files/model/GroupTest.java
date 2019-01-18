@@ -1,3 +1,7 @@
+package game.files.model;
+
+import game.files.model.Group;
+import game.files.model.Stone;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,7 +12,7 @@ public class GroupTest {
     private Group group;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         fakeBoard = new Stone[9][9];
         fakeBoard[1][0] = new Stone(false);
         fakeBoard[1][1] = new Stone(false);
@@ -55,15 +59,15 @@ public class GroupTest {
     }
 
     @Test(expected = NullPointerException.class)
-    public void emptyFieldIsNullPointer(){
-        group.findGroup(1,2);
+    public void emptyFieldIsNullPointer() {
+        group.findGroup(1, 2);
 
         Assert.assertFalse(fakeBoard[2][0].isPartOfGroup);
     }
 
     @Test
-    public void firstBlackGroup(){
-        group.findGroup(1,2);
+    public void firstBlackGroup() {
+        group.findGroup(1, 2);
 
         Assert.assertTrue(fakeBoard[1][0].isPartOfGroup);
         Assert.assertTrue(fakeBoard[1][1].isPartOfGroup);
@@ -75,9 +79,10 @@ public class GroupTest {
         Assert.assertTrue(fakeBoard[1][7].isPartOfGroup);
         Assert.assertTrue(fakeBoard[1][8].isPartOfGroup);
     }
+
     @Test
-    public void blackGroupsAreSeparatedFirstGroupMarked(){
-        group.findGroup(1,4);
+    public void blackGroupsAreSeparatedFirstGroupMarked() {
+        group.findGroup(1, 4);
         Assert.assertTrue(fakeBoard[1][0].isPartOfGroup);
         Assert.assertTrue(fakeBoard[1][1].isPartOfGroup);
         Assert.assertTrue(fakeBoard[1][2].isPartOfGroup);
@@ -98,9 +103,10 @@ public class GroupTest {
         Assert.assertFalse(fakeBoard[6][7].isPartOfGroup);
         Assert.assertFalse(fakeBoard[6][8].isPartOfGroup);
     }
+
     @Test
-    public void blackGroupsAreSeparatedSecondGroupMarked(){
-        group.findGroup(6,4);
+    public void blackGroupsAreSeparatedSecondGroupMarked() {
+        group.findGroup(6, 4);
         Assert.assertFalse(fakeBoard[1][0].isPartOfGroup);
         Assert.assertFalse(fakeBoard[1][1].isPartOfGroup);
         Assert.assertFalse(fakeBoard[1][2].isPartOfGroup);
@@ -123,8 +129,8 @@ public class GroupTest {
     }
 
     @Test
-    public void whiteGroup(){
-        group.findGroup(5,3);
+    public void whiteGroup() {
+        group.findGroup(5, 3);
         Assert.assertTrue(fakeBoard[3][0].isPartOfGroup);
         Assert.assertTrue(fakeBoard[3][1].isPartOfGroup);
         Assert.assertTrue(fakeBoard[3][2].isPartOfGroup);
@@ -148,8 +154,8 @@ public class GroupTest {
     }
 
     @Test
-    public void resetGroupSelection(){
-        group.findGroup(1,3);
+    public void resetGroupSelection() {
+        group.findGroup(1, 3);
 
         Assert.assertFalse(fakeBoard[3][0].isPartOfGroup);
         Assert.assertFalse(fakeBoard[3][1].isPartOfGroup);
@@ -173,7 +179,7 @@ public class GroupTest {
         Assert.assertFalse(fakeBoard[4][8].isPartOfGroup);
 
         group.resetGroupSelection();
-        group.findGroup(5,3);
+        group.findGroup(5, 3);
 
         Assert.assertTrue(fakeBoard[3][0].isPartOfGroup);
         Assert.assertTrue(fakeBoard[3][1].isPartOfGroup);
@@ -196,14 +202,15 @@ public class GroupTest {
         Assert.assertTrue(fakeBoard[4][0].isPartOfGroup);
         Assert.assertTrue(fakeBoard[4][8].isPartOfGroup);
     }
+
     @Test
-    public void blackGroupAlive(){
-        group.findGroup(1,2);
+    public void blackGroupAlive() {
+        group.findGroup(1, 2);
         Assert.assertTrue(group.isGroupAlive());
     }
 
     @Test
-    public void deadGroup(){
+    public void deadGroup() {
         Stone[][] foo = new Stone[3][3];
         foo[0][0] = new Stone(true);
         foo[0][1] = new Stone(true);
@@ -212,7 +219,7 @@ public class GroupTest {
         foo[0][2] = new Stone(false);
 
         Group bar = new Group(foo);
-        bar.findGroup(0,0);
+        bar.findGroup(0, 0);
 
         Assert.assertFalse(bar.isGroupAlive());
 

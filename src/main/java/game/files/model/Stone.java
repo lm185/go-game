@@ -1,39 +1,41 @@
-class Stone {
+package game.files.model;
+
+public class Stone {
 
     private boolean isWhite;
     private int libertiesCounter = 0;
     private int connectionCounter = 0;
-    boolean isPartOfGroup = false;
+    public boolean isPartOfGroup = false;
 
-    Stone(boolean isWhite) {
+    public Stone(boolean isWhite) {
         this.isWhite = isWhite;
     }
 
-    boolean isStoneWhite() {
+    public boolean isStoneWhite() {
         return this.isWhite;
     }
 
-    int getLiberties() {
+    public int getLiberties() {
         return this.libertiesCounter;
     }
 
-    void setLiberties(int x) {
+    public void setLiberties(int x) {
         this.libertiesCounter = x;
     }
 
-    int getConnectionCounter() {
+    public int getConnectionCounter() {
         return this.connectionCounter;
     }
 
-    void setConnectionCounter(int x) {
+    public void setConnectionCounter(int x) {
         this.connectionCounter = x;
     }
 
-    void markAsPartOfGroup() {
+    public void markAsPartOfGroup() {
         this.isPartOfGroup = true;
     }
 
-    void unMarkAsPartOfGroup() {
+    public void unMarkAsPartOfGroup() {
         this.isPartOfGroup = false;
     }
 }
