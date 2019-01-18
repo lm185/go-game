@@ -1,23 +1,22 @@
 package game.files.model;
 
-import game.files.model.Stone;
 import lombok.Data;
 
 @Data
-public class Liberties {
+class Liberties {
     private Stone[][] gameBoard;
     private int boardHeight;
 
-    public Liberties(Stone[][] gameBoard) {
+    Liberties(Stone[][] gameBoard) {
         this.gameBoard = gameBoard;
         this.boardHeight = gameBoard.length;
     }
 
-    public void setLibertiesForStone(int row, int column) {
+    void setLibertiesForStone(int row, int column) {
         gameBoard[row][column].setLiberties(getLibertiesForStone(row, column));
     }
 
-    public void setConnectionsForStone(int row, int column) {
+    void setConnectionsForStone(int row, int column) {
         gameBoard[row][column].setConnectionCounter(getConnectionsForStone(row, column));
     }
 
