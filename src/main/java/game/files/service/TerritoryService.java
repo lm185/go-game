@@ -120,15 +120,19 @@ public class TerritoryService {
     }
 
     private int countCurrentTerritoryFields() {
-        int territoryFields = 0;
+        return countFields(isPartOfMarkedTerritory);
+    }
+
+    private int countFields(boolean[][] territoryToCount) {
+        int fields = 0;
         for (int i = 0; i < boardHeight; i++) {
             for (int j = 0; j < boardHeight; j++) {
-                if (isPartOfMarkedTerritory[i][j]) {
-                    territoryFields++;
+                if (territoryToCount[i][j]) {
+                    fields++;
                 }
             }
         }
-        return territoryFields;
+        return fields;
     }
 
     private void resetIsFieldCounted() {
@@ -168,14 +172,6 @@ public class TerritoryService {
     }
 
     private int getBorderLength() {
-        int count = 0;
-        for (int i = 0; i < boardHeight; i++) {
-            for (int j = 0; j < boardHeight; j++) {
-                if (isTerritoryBorder[i][j]) {
-                    count++;
-                }
-            }
-        }
-        return count;
+        return countFields(isTerritoryBorder);
     }
 }

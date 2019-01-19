@@ -81,8 +81,8 @@ public class InputService {
     private int findSize() {
         System.out.println("Board Size?");
         int n = scanInput();
-        while (n <= 0) {
-            System.out.println("Please enter a positive Integer Value");
+        while (n <= 0 || n > 19) {
+            System.out.println("Please enter a positive value below 20");
             n = scanInput();
         }
         System.out.println();

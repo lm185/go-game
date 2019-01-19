@@ -15,6 +15,9 @@ public class KickService {
     private int pointsWhite = 0;
     private int pointsBlack = 0;
 
+    public KickService() {
+
+    }
 
     public KickService(Stone[][] gameBoard) {
         this.boardHeight = gameBoard.length;
@@ -27,7 +30,7 @@ public class KickService {
         removeAllDeadGroups();
     }
 
-    public void kickAllAdjacentDeadGroups(int row, int column) {
+    void kickAllAdjacentDeadGroups(int row, int column) {
         /*
          * Checks adjacent fields. If they are from the opposite player and the group is dead they are kicked.
          * This is to ensure kick integrity. If a player A puts a stone at a point where either the stones of
@@ -46,11 +49,12 @@ public class KickService {
                 return true;
             }
         } catch (ArrayIndexOutOfBoundsException ignored) {
+            return false;
         }
         return false;
     }
 
-    public void removeAllDeadGroups() {
+    void removeAllDeadGroups() {
         for (int i = 0; i < boardHeight; i++) {
             for (int j = 0; j < boardHeight; j++) {
                 kickGroupIfDead(i, j);
