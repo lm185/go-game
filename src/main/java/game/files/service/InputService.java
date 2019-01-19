@@ -9,15 +9,15 @@ import java.lang.String;
 
 @Data
 @Service
-public class Input {
+public class InputService {
     private Scanner scanner;
     private int boardHeight;
     private Stone[][] gameBoard;
 
-    public Input() {
+    public InputService() {
     }
 
-    public Input(Scanner scanner) {
+    public InputService(Scanner scanner) {
         this.scanner = scanner;
         this.boardHeight = findSize();
         this.gameBoard = new Stone[boardHeight][boardHeight];

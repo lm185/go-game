@@ -4,7 +4,7 @@ import game.files.model.Stone;
 import org.springframework.stereotype.Service;
 
 @Service
-public class Output {
+public class OutputService {
     public static void draw(Stone[][] brett) {
         int boardHeight = brett.length;
         System.out.print(" ");

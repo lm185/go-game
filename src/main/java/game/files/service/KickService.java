@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Data
 @Service
-public class Kick {
+public class KickService {
 
     private int boardHeight;
     private Stone[][] gameBoard;
@@ -16,7 +16,7 @@ public class Kick {
     private int pointsBlack = 0;
 
 
-    public Kick(Stone[][] gameBoard) {
+    public KickService(Stone[][] gameBoard) {
         this.boardHeight = gameBoard.length;
         this.gameBoard = gameBoard;
         this.group = new Group(gameBoard);

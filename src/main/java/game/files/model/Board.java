@@ -1,9 +1,9 @@
 package game.files.model;
 
-import game.files.service.Input;
-import game.files.service.Kick;
-import game.files.service.Output;
-import game.files.service.Territory;
+import game.files.service.InputService;
+import game.files.service.KickService;
+import game.files.service.OutputService;
+import game.files.service.TerritoryService;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +14,7 @@ public class Board {
     private boolean isCurrentPlayerWhite = false;
     private int pointsWhite = 0;
     private int pointsBlack = 0;
-    private Input input;
+    private InputService inputService;
     private int passes = 0;
 
     public Board() {
@@ -24,9 +24,9 @@ public class Board {
         this.gameBoard = new Stone[boardHeight][boardHeight];
     }
 
-    public Board(Input input) {
-        this.input = input;
-        this.gameBoard = input.getGameBoard();
+    public Board(InputService inputService) {
+        this.inputService = inputService;
+        this.gameBoard = inputService.getGameBoard();
     }
 
     public void play() {
@@ -36,7 +36,7 @@ public class Board {
         System.out.println();
 
         while (true) {
-            int[] rowAndColumn = input.findRowAndColumn();
+            int[] rowAndColumn = inputService.findRowAndColumn();
             int row = rowAndColumn[0];
             int column = rowAndColumn[1];
 
@@ -92,27 +92,27 @@ public class Board {
     }
 
     private void move(int row, int column) {
-        Output.printCurrentPlayer(isCurrentPlayerWhite);
+        OutputService.printCurrentPlayer(isCurrentPlayerWhite);
         setStone(row, column);
     }
 
     private void kick(int row, int column) {
-        Kick kick = new Kick(gameBoard);
+        KickService kickService = new KickService(gameBoard);
 
-        kick.findAndKickDeadStones(row, column);
+        kickService.findAndKickDeadStones(row, column);
 
-        pointsWhite += kick.getPointsWhite();
-        pointsBlack += kick.getPointsBlack();
+        pointsWhite += kickService.getPointsWhite();
+        pointsBlack += kickService.getPointsBlack();
     }
 
     public void addTerritoryPoints() {
-        Territory territory = new Territory(gameBoard);
-        this.pointsWhite += territory.getPointsWhite();
-        this.pointsBlack += territory.getPointsBlack();
+        TerritoryService territoryService = new TerritoryService(gameBoard);
+        this.pointsWhite += territoryService.getPointsWhite();
+        this.pointsBlack += territoryService.getPointsBlack();
     }
 
     public void draw() {
-        Output.draw(gameBoard);
+        OutputService.draw(gameBoard);
     }
 
     private void nextPlayer() {

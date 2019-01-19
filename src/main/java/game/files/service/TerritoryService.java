@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 @Data
 @Service
-public class Territory {
+public class TerritoryService {
 
     private int boardHeight;
     private Stone[][] gameBoard;
@@ -14,11 +14,11 @@ public class Territory {
     private boolean[][] isFieldCounted;
     private boolean[][] isTerritoryBorder;
 
-    public Territory() {
+    public TerritoryService() {
 
     }
 
-    public Territory(Stone[][] gameBoard) {
+    public TerritoryService(Stone[][] gameBoard) {
         this.boardHeight = gameBoard.length;
         this.gameBoard = gameBoard;
         this.isFieldCounted = new boolean[boardHeight][boardHeight];
