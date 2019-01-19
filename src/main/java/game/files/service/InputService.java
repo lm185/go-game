@@ -26,11 +26,11 @@ public class InputService {
 
     private int scanInput() {
         String input = scanner.nextLine();
-        if (input.equals("pass")) { // Checks if the player actually wants to make a move or pass
-            return -1337;
-        }
         if (input.length() <= 0) {
             return -1;
+        }
+        if (input.toLowerCase().equals("pass")) { // Checks if the player actually wants to make a move or pass
+            return -1337;
         }
         if (input.matches("^[0-9]*$")) {
             return Integer.parseInt(input);
@@ -47,6 +47,9 @@ public class InputService {
         while (!isInBorder(input)) {
             System.out.println("Invalid Input\n" + hint);
             input = scanInput();
+            if (input == -1337) {
+                return -1337;
+            }
         }
         return input;
     }
