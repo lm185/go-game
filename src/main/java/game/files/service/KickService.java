@@ -82,6 +82,12 @@ public class KickService {
         }
     }
 
+    public void reset() {
+        group.resetGroupSelection();
+        pointsBlack = 0;
+        pointsWhite = 0;
+    }
+
     private void removeStone(int row, int column) {
         gameBoard[row][column] = null;
     }

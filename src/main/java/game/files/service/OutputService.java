@@ -38,4 +38,20 @@ public class OutputService {
         if (isWhite) System.out.println("White's turn");
         else System.out.println("Black's turn");
     }
+
+    public static void gameOver(int pointsWhite, int pointsBlack) {
+        System.out.println();
+        System.out.println("Game Over");
+        System.out.println("White has " + pointsWhite + " points");
+        System.out.println("Black has " + pointsBlack + " points");
+        System.out.println();
+
+        if (pointsBlack > pointsWhite) {
+            System.out.println("Black won");
+        } else if (pointsBlack < pointsWhite) {
+            System.out.println("White won");
+        } else {
+            System.out.println("Tie");
+        }
+    }
 }

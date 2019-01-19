@@ -12,21 +12,24 @@ import org.springframework.stereotype.Component;
 public class Board {
     private Stone[][] gameBoard;
     private boolean isCurrentPlayerWhite = false;
+    private InputService inputService;
+    private KickService kickService;
     private int pointsWhite = 0;
     private int pointsBlack = 0;
-    private InputService inputService;
     private int passes = 0;
 
     public Board() {
     }
 
-    public Board(int boardHeight) { //For Testing Purpose
-        this.gameBoard = new Stone[boardHeight][boardHeight];
+    public Board(Stone[][] gameBoard) { //For Testing Purpose
+        this.gameBoard = gameBoard;
+        this.kickService = new KickService(gameBoard);
     }
 
     public Board(InputService inputService) {
         this.inputService = inputService;
         this.gameBoard = inputService.getGameBoard();
+        this.kickService = new KickService(gameBoard);
     }
 
     public void play() {
@@ -52,38 +55,24 @@ public class Board {
             draw();
             nextPlayer();
         }
-
         gameOver();
     }
 
     private void gameOver() {
         addTerritoryPoints();
-
-        System.out.println();
-        System.out.println("Game Over");
-        System.out.println("White has " + this.pointsWhite + " points");
-        System.out.println("Black has " + this.pointsBlack + " points");
-        System.out.println();
-
-        if (this.pointsBlack > this.pointsWhite) {
-            System.out.println("Black won");
-        } else if (this.pointsBlack < this.pointsWhite) {
-            System.out.println("White won");
-        } else {
-            System.out.println("Tie");
-        }
+        OutputService.gameOver(pointsWhite, pointsBlack);
     }
 
     private boolean isGameOver(int[] rowAndColumn) {
         if (doesPlayerPass(rowAndColumn)) {
-            this.passes++;
+            passes++;
         } else {
-            this.passes = 0;
+            passes = 0;
         }
-        return this.passes == 2;
+        return passes == 2;
     }
 
-    public void testPlay(int row, int column, boolean isCurrentPlayerWhite) {
+    void testPlay(int row, int column, boolean isCurrentPlayerWhite) {
         this.isCurrentPlayerWhite = isCurrentPlayerWhite;
         move(row, column);
         kick(row, column);
@@ -97,15 +86,14 @@ public class Board {
     }
 
     private void kick(int row, int column) {
-        KickService kickService = new KickService(gameBoard);
-
+        kickService.reset();
         kickService.findAndKickDeadStones(row, column);
 
         pointsWhite += kickService.getPointsWhite();
         pointsBlack += kickService.getPointsBlack();
     }
 
-    public void addTerritoryPoints() {
+    void addTerritoryPoints() {
         TerritoryService territoryService = new TerritoryService(gameBoard);
         this.pointsWhite += territoryService.getPointsWhite();
         this.pointsBlack += territoryService.getPointsBlack();

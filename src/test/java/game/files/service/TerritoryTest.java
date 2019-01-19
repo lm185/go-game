@@ -11,7 +11,6 @@ public class TerritoryTest {
 
     @Before
     public void createBoard() {
-        this.board = new Board(9);
         Stone[][] fakeBoard = new Stone[9][9];
         fakeBoard[1][0] = new Stone(false);
         fakeBoard[1][1] = new Stone(false);
@@ -51,8 +50,7 @@ public class TerritoryTest {
         fakeBoard[6][6] = new Stone(false);
         fakeBoard[6][7] = new Stone(false);
         fakeBoard[6][8] = new Stone(false);
-
-        this.board.setGameBoard(fakeBoard);
+        this.board = new Board(fakeBoard);
     }
 
     @Test
