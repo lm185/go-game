@@ -17,7 +17,7 @@ public class Board {
     private TerritoryService territoryService;
     private int pointsWhite = 0;
     private int pointsBlack = 0;
-    private int passes = 0;
+    private int consecutivePasses = 0;
 
     public Board() {
     }
@@ -48,11 +48,11 @@ public class Board {
             if (isGameOver(rowAndColumn)) {
                 break;
             }
-            if (!doesPlayerPass(rowAndColumn)) {
+            if (doesPlayerPass(rowAndColumn)) {
+                System.out.println("Player passed");
+            } else {
                 move(row, column);
                 kick(row, column);
-            } else {
-                System.out.println("Player passed");
             }
             draw();
             nextPlayer();
@@ -67,11 +67,11 @@ public class Board {
 
     private boolean isGameOver(int[] rowAndColumn) {
         if (doesPlayerPass(rowAndColumn)) {
-            passes++;
+            consecutivePasses++;
         } else {
-            passes = 0;
+            consecutivePasses = 0;
         }
-        return passes == 2;
+        return consecutivePasses == 2;
     }
 
     void testPlay(int row, int column, boolean isCurrentPlayerWhite) {

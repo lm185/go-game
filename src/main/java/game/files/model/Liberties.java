@@ -18,15 +18,7 @@ class Liberties {
         this.boardHeight = gameBoard.length;
     }
 
-    void setLibertiesForStone(int row, int column) {
-        gameBoard[row][column].setLiberties(getLibertiesForStone(row, column));
-    }
-
-    void setConnectionsForStone(int row, int column) {
-        gameBoard[row][column].setConnectionCounter(getConnectionsForStone(row, column));
-    }
-
-    int getConnectionsForStone(int row, int column) {
+    int findConnectionsForStone(int row, int column) {
         boolean isStoneWhite = gameBoard[row][column].isStoneWhite();
         int connectionCounter = 0;
 
@@ -38,15 +30,15 @@ class Liberties {
         return connectionCounter;
     }
 
-    int getLibertiesForStone(int row, int column) {
+    int findLibertiesForStone(int row, int column) {
         int libertiesCounter = 4;
         boolean isStoneWhite = gameBoard[row][column].isStoneWhite();
 
-        /* Remove game.files.model.Liberties if game.files.model.Stone is on the edge of the board */
+        /* Remove Liberties if game.files.model.Stone is on the edge of the board */
         if (row == 0 || row == boardHeight - 1) libertiesCounter -= 1;
         if (column == 0 || column == boardHeight - 1) libertiesCounter -= 1;
 
-        /* Remove game.files.model.Liberties for enemy stones */
+        /* Remove Liberties for enemy stones */
         if (isAdjacentFieldEnemy(row - 1, column, isStoneWhite)) libertiesCounter--;
         if (isAdjacentFieldEnemy(row + 1, column, isStoneWhite)) libertiesCounter--;
         if (isAdjacentFieldEnemy(row, column - 1, isStoneWhite)) libertiesCounter--;

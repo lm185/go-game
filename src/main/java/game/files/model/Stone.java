@@ -8,8 +8,6 @@ import org.springframework.stereotype.Component;
 public class Stone {
 
     private boolean isWhite;
-    private int liberties = 0;
-    private int connectionCounter = 0;
     public boolean isPartOfGroup = false;
 
     public Stone() {
@@ -22,13 +20,5 @@ public class Stone {
 
     public boolean isStoneWhite() {
         return this.isWhite;
-    }
-
-    void markAsPartOfGroup() {
-        this.isPartOfGroup = true;
-    }
-
-    void unMarkAsPartOfGroup() {
-        this.isPartOfGroup = false;
     }
 }

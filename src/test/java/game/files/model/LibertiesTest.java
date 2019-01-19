@@ -1,7 +1,5 @@
 package game.files.model;
 
-import game.files.model.Liberties;
-import game.files.model.Stone;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,36 +34,36 @@ public class LibertiesTest {
 
     @Test
     public void edgeStoneHas2Liberties() {
-        Assert.assertEquals(2, liberties.getLibertiesForStone(0, 0));
+        Assert.assertEquals(2, liberties.findLibertiesForStone(0, 0));
     }
 
     @Test
     public void surroundedStoneHas1Liberty() {
-        Assert.assertEquals(1, liberties.getLibertiesForStone(5, 0));
+        Assert.assertEquals(1, liberties.findLibertiesForStone(5, 0));
     }
 
     @Test
     public void deadStoneHasNoLiberties() {
-        Assert.assertEquals(0, liberties.getLibertiesForStone(8, 0));
+        Assert.assertEquals(0, liberties.findLibertiesForStone(8, 0));
     }
 
     @Test
     public void stoneWithOneNeighbourHas4Liberties() {
-        Assert.assertEquals(4, liberties.getLibertiesForStone(2, 2));
+        Assert.assertEquals(4, liberties.findLibertiesForStone(2, 2));
     }
 
     @Test
     public void edgeStoneHasNoConnections() {
-        Assert.assertEquals(0, liberties.getConnectionsForStone(0, 0));
+        Assert.assertEquals(0, liberties.findConnectionsForStone(0, 0));
     }
 
     @Test
     public void stoneWithOneNeighbourHas1Connection() {
-        Assert.assertEquals(1, liberties.getConnectionsForStone(2, 2));
+        Assert.assertEquals(1, liberties.findConnectionsForStone(2, 2));
     }
 
     @Test
     public void stoneHas3Connections() {
-        Assert.assertEquals(3, liberties.getConnectionsForStone(3, 6));
+        Assert.assertEquals(3, liberties.findConnectionsForStone(3, 6));
     }
 }

@@ -10,8 +10,7 @@ public class Group {
     private int boardHeight;
     private Liberties liberties;
 
-    public Group(){
-
+    public Group() {
     }
 
     public Group(Stone[][] gameBoard) {
@@ -22,7 +21,7 @@ public class Group {
 
     public void findGroup(int row, int column) {
         if (gameBoard[row][column] != null) {
-            gameBoard[row][column].markAsPartOfGroup();
+            gameBoard[row][column].setPartOfGroup(true);
             boolean isGroupWhite = gameBoard[row][column].isStoneWhite();
             /* If one of the adjacent stones has the same color recursively calls itself */
             if (isStonePartOfGroup(row - 1, column, isGroupWhite)) findGroup(row - 1, column);
@@ -48,25 +47,20 @@ public class Group {
         for (int i = 0; i < boardHeight; i++) {
             for (int j = 0; j < boardHeight; j++) {
                 if (gameBoard[i][j] != null && gameBoard[i][j].isPartOfGroup) {
-                    liberties.setLibertiesForStone(i, j);
-                    liberties.setConnectionsForStone(i, j);
-                    libertiesGroup += gameBoard[i][j].getLiberties();
-                    connectionsGroup += gameBoard[i][j].getConnectionCounter();
+                    libertiesGroup += liberties.findLibertiesForStone(i, j);
+                    connectionsGroup += liberties.findConnectionsForStone(i, j);
                 }
             }
         }
-        libertiesGroup -= connectionsGroup;
-
-        return libertiesGroup != 0;
+        return libertiesGroup - connectionsGroup != 0;
     }
 
     public void resetGroupSelection() {
         for (int i = 0; i < boardHeight; i++) {
             for (int j = 0; j < boardHeight; j++) {
                 if (gameBoard[i][j] != null)
-                    gameBoard[i][j].unMarkAsPartOfGroup();
+                    gameBoard[i][j].setPartOfGroup(false);
             }
         }
     }
-
 }
