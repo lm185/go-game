@@ -1,11 +1,17 @@
 package game.files.model;
 
 import lombok.Data;
+import org.springframework.stereotype.Component;
 
 @Data
+@Component
 class Liberties {
     private Stone[][] gameBoard;
     private int boardHeight;
+
+    Liberties() {
+
+    }
 
     Liberties(Stone[][] gameBoard) {
         this.gameBoard = gameBoard;

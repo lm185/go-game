@@ -3,8 +3,10 @@ package game.files.service;
 import game.files.model.Group;
 import game.files.model.Stone;
 import lombok.Data;
+import org.springframework.stereotype.Service;
 
 @Data
+@Service
 public class Kick {
 
     private int boardHeight;

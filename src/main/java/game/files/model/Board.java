@@ -5,19 +5,23 @@ import game.files.service.Kick;
 import game.files.service.Output;
 import game.files.service.Territory;
 import lombok.Data;
+import org.springframework.stereotype.Component;
 
 @Data
+@Component
 public class Board {
     private Stone[][] gameBoard;
     private boolean isCurrentPlayerWhite = false;
     private int pointsWhite = 0;
     private int pointsBlack = 0;
-    private final Input input;
+    private Input input;
     private int passes = 0;
+
+    public Board() {
+    }
 
     public Board(int boardHeight) { //For Testing Purpose
         this.gameBoard = new Stone[boardHeight][boardHeight];
-        this.input = null;
     }
 
     public Board(Input input) {

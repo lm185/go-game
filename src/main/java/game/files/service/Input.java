@@ -2,15 +2,20 @@ package game.files.service;
 
 import game.files.model.Stone;
 import lombok.Data;
+import org.springframework.stereotype.Service;
 
 import java.util.Scanner;
 import java.lang.String;
 
 @Data
+@Service
 public class Input {
-    private final Scanner scanner;
-    private final int boardHeight;
+    private Scanner scanner;
+    private int boardHeight;
     private Stone[][] gameBoard;
+
+    public Input() {
+    }
 
     public Input(Scanner scanner) {
         this.scanner = scanner;

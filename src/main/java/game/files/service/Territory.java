@@ -2,16 +2,21 @@ package game.files.service;
 
 import game.files.model.Stone;
 import lombok.Data;
+import org.springframework.stereotype.Service;
 
 @Data
+@Service
 public class Territory {
 
-    private final int boardHeight;
+    private int boardHeight;
     private Stone[][] gameBoard;
     private boolean[][] isPartOfMarkedTerritory;
     private boolean[][] isFieldCounted;
     private boolean[][] isTerritoryBorder;
 
+    public Territory() {
+
+    }
 
     public Territory(Stone[][] gameBoard) {
         this.boardHeight = gameBoard.length;
