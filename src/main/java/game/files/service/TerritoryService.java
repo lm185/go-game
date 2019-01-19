@@ -59,7 +59,7 @@ public class TerritoryService {
     }
 
     boolean isTerritoryWhite() {
-        /* game.files.service.Territory only belongs to a player, if the entire border is made out of his stones */
+        /* Territory only belongs to a player, if the entire border is made out of his stones */
         if (countCurrentTerritoryFields() == 0 || getBorderLength() == 0) {
             return false;
         }

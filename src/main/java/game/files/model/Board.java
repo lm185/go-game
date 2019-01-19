@@ -14,6 +14,7 @@ public class Board {
     private boolean isCurrentPlayerWhite = false;
     private InputService inputService;
     private KickService kickService;
+    private TerritoryService territoryService;
     private int pointsWhite = 0;
     private int pointsBlack = 0;
     private int passes = 0;
@@ -24,6 +25,7 @@ public class Board {
     public Board(Stone[][] gameBoard) { //For Testing Purpose
         this.gameBoard = gameBoard;
         this.kickService = new KickService(gameBoard);
+        this.territoryService = new TerritoryService(gameBoard);
     }
 
     public Board(InputService inputService) {
@@ -94,9 +96,8 @@ public class Board {
     }
 
     void addTerritoryPoints() {
-        TerritoryService territoryService = new TerritoryService(gameBoard);
-        this.pointsWhite += territoryService.getPointsWhite();
-        this.pointsBlack += territoryService.getPointsBlack();
+        pointsWhite += territoryService.getPointsWhite();
+        pointsBlack += territoryService.getPointsBlack();
     }
 
     public void draw() {
