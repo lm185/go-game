@@ -1,9 +1,6 @@
 package game.files.model;
 
-import game.files.service.InputService;
-import game.files.service.KickService;
-import game.files.service.OutputService;
-import game.files.service.TerritoryService;
+import game.files.service.*;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +12,7 @@ public class Board {
     private InputService inputService;
     private KickService kickService;
     private TerritoryService territoryService;
+    private RulesService rulesService;
     private int pointsWhite = 0;
     private int pointsBlack = 0;
     private int consecutivePasses = 0;
@@ -26,12 +24,14 @@ public class Board {
         this.gameBoard = gameBoard;
         this.kickService = new KickService(gameBoard);
         this.territoryService = new TerritoryService(gameBoard);
+        this.rulesService = new RulesService(gameBoard);
     }
 
     public Board(InputService inputService) {
         this.inputService = inputService;
         this.gameBoard = inputService.getGameBoard();
         this.kickService = new KickService(gameBoard);
+        this.rulesService = new RulesService(gameBoard);
     }
 
     public void play() {
@@ -41,6 +41,7 @@ public class Board {
         System.out.println();
 
         while (true) {
+            //TODO routine for rulesservice
             int[] rowAndColumn = inputService.findRowAndColumn();
             int row = rowAndColumn[0];
             int column = rowAndColumn[1];

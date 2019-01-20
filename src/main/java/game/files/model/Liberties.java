@@ -34,7 +34,7 @@ class Liberties {
         int libertiesCounter = 4;
         boolean isStoneWhite = gameBoard[row][column].isStoneWhite();
 
-        /* Remove Liberties if game.files.model.Stone is on the edge of the board */
+        /* Remove Liberties if Stone is on the edge of the board */
         if (row == 0 || row == boardHeight - 1) libertiesCounter -= 1;
         if (column == 0 || column == boardHeight - 1) libertiesCounter -= 1;
 
