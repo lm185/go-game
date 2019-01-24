@@ -1,94 +1,96 @@
 package game.files.service;
 
 import game.files.model.Stone;
+import java.util.Scanner;
 import lombok.Data;
 import org.springframework.stereotype.Service;
-
-import java.util.Scanner;
-import java.lang.String;
 
 @Data
 @Service
 public class InputService {
-    private Scanner scanner;
-    private int boardHeight;
-    private Stone[][] gameBoard;
 
-    public InputService() {
+  private Scanner scanner;
+  private int boardHeight;
+  private Stone[][] gameBoard;
+
+  public InputService() {
+  }
+
+  public InputService(Scanner scanner) {
+    this.scanner = scanner;
+    this.boardHeight = findSize();
+    this.gameBoard = new Stone[boardHeight][boardHeight];
+  }
+
+
+  private int scanInput() {
+    String input = scanner.nextLine();
+    if (input.length() <= 0) {
+      return -1;
     }
-
-    public InputService(Scanner scanner) {
-        this.scanner = scanner;
-        this.boardHeight = findSize();
-        this.gameBoard = new Stone[boardHeight][boardHeight];
+    if (input.toLowerCase()
+        .equals("pass")) { // Checks if the player actually wants to make a move or pass
+      return -1337;
     }
-
-
-    private int scanInput() {
-        String input = scanner.nextLine();
-        if (input.length() <= 0) {
-            return -1;
-        }
-        if (input.toLowerCase().equals("pass")) { // Checks if the player actually wants to make a move or pass
-            return -1337;
-        }
-        if (input.matches("^[0-9]*$")) {
-            return Integer.parseInt(input);
-        }
-        return -1;
+    if (input.matches("^[0-9]*$")) {
+      return Integer.parseInt(input);
     }
+    return -1;
+  }
 
-    private int readInput(String hint) {
-        System.out.println(hint);
-        int input = scanInput();
-        if (input == -1337) {
-            return -1337;
-        }
-        while (!isInBorder(input)) {
-            System.out.println("Invalid Input\n" + hint);
-            input = scanInput();
-            if (input == -1337) {
-                return -1337;
-            }
-        }
-        return input;
+  private int readInput(String hint) {
+    System.out.println(hint);
+    int input = scanInput();
+    if (input == -1337) {
+      return -1337;
     }
-
-    private boolean isInBorder(int input) {
-        return input < boardHeight && input >= 0;
+    while (!isInBorder(input)) {
+      System.out.println("Invalid Input\n" + hint);
+      input = scanInput();
+      if (input == -1337) {
+        return -1337;
+      }
     }
+    return input;
+  }
 
-    public int[] findRowAndColumn() {
-        int row, column;
-        do {
-            row = readInput("Row?");
+  private boolean isInBorder(int input) {
+    return input < boardHeight && input >= 0;
+  }
 
-            if (row == -1337) {
-                return new int[]{-1337, -1337};
-            }
+  public int[] findRowAndColumn() {
+    int row;
+    int column;
+    do {
+      row = readInput("Row?");
 
-            column = readInput("Column?");
+      if (row == -1337) {
+        return new int[]{-1337, -1337};
+      }
 
-            if (column == -1337) {
-                return new int[]{-1337, -1337};
-            }
-            if (gameBoard[row][column] != null)
-                System.out.println("Invalid Move");
-            else
-                break;
-        } while (true);
+      column = readInput("Column?");
 
-        return new int[]{row, column};
+      if (column == -1337) {
+        return new int[]{-1337, -1337};
+      }
+      if (gameBoard[row][column] != null) {
+        System.out.println("Invalid Move");
+      } else {
+        break;
+      }
+    } while (true);
+
+    return new int[]{row, column};
+  }
+
+  private int findSize() {
+    System.out.println("Board Size?");
+    int n = scanInput();
+    while (n <= 0 || n > 19) {
+      System.out.println("Please enter a positive value below 20");
+      n = scanInput();
     }
-
-    private int findSize() {
-        System.out.println("Board Size?");
-        int n = scanInput();
-        while (n <= 0 || n > 19) {
-            System.out.println("Please enter a positive value below 20");
-            n = scanInput();
-        }
-        System.out.println();
-        return n;
-    }
+    System.out.println();
+    return n;
+  }
 }

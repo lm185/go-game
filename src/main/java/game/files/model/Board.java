@@ -1,119 +1,124 @@
 package game.files.model;
 
-import game.files.service.*;
+import game.files.service.InputService;
+import game.files.service.KickService;
+import game.files.service.OutputService;
+import game.files.service.RulesService;
+import game.files.service.TerritoryService;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
 @Data
 @Component
 public class Board {
-    private Stone[][] gameBoard;
-    private boolean isCurrentPlayerWhite = false;
-    private InputService inputService;
-    private KickService kickService;
-    private TerritoryService territoryService;
-    private RulesService rulesService;
-    private int pointsWhite = 0;
-    private int pointsBlack = 0;
-    private int consecutivePasses = 0;
 
-    public Board() {
-    }
+  private Stone[][] gameBoard;
+  private boolean isCurrentPlayerWhite = false;
+  private InputService inputService;
+  private KickService kickService;
+  private TerritoryService territoryService;
+  private RulesService rulesService;
+  private int pointsWhite = 0;
+  private int pointsBlack = 0;
+  private int consecutivePasses = 0;
 
-    public Board(Stone[][] gameBoard) { //For Testing Purpose
-        this.gameBoard = gameBoard;
-        this.kickService = new KickService(gameBoard);
-        this.territoryService = new TerritoryService(gameBoard);
-        this.rulesService = new RulesService(gameBoard);
-    }
+  public Board() {
+  }
 
-    public Board(InputService inputService) {
-        this.inputService = inputService;
-        this.gameBoard = inputService.getGameBoard();
-        this.kickService = new KickService(gameBoard);
-        this.rulesService = new RulesService(gameBoard);
-    }
+  public Board(Stone[][] gameBoard) { //For Testing Purpose
+    this.gameBoard = gameBoard;
+    this.kickService = new KickService(gameBoard);
+    this.territoryService = new TerritoryService(gameBoard);
+    this.rulesService = new RulesService(gameBoard);
+  }
 
-    public void play() {
-        System.out.println("Enter column and row to place a stone");
-        System.out.println("Entering 'pass' will skip your turn");
-        System.out.println("If both players pass the game ends");
-        System.out.println();
+  public Board(InputService inputService) {
+    this.inputService = inputService;
+    this.gameBoard = inputService.getGameBoard();
+    this.kickService = new KickService(gameBoard);
+    this.rulesService = new RulesService(gameBoard);
+  }
 
-        while (true) {
-            //TODO routine for rulesservice
-            int[] rowAndColumn = inputService.findRowAndColumn();
-            int row = rowAndColumn[0];
-            int column = rowAndColumn[1];
+  public void play() {
+    System.out.println("Enter column and row to place a stone");
+    System.out.println("Entering 'pass' will skip your turn");
+    System.out.println("If both players pass the game ends");
+    System.out.println();
 
-            if (isGameOver(rowAndColumn)) {
-                break;
-            }
-            if (doesPlayerPass(rowAndColumn)) {
-                System.out.println("Player passed");
-            } else {
-                move(row, column);
-                kick(row, column);
-            }
-            draw();
-            nextPlayer();
-        }
-        gameOver();
-    }
+    while (true) {
+      //TODO routine for rulesservice
+      int[] rowAndColumn = inputService.findRowAndColumn();
+      int row = rowAndColumn[0];
+      int column = rowAndColumn[1];
 
-    private void gameOver() {
-        addTerritoryPoints();
-        OutputService.gameOver(pointsWhite, pointsBlack);
-    }
-
-    private boolean isGameOver(int[] rowAndColumn) {
-        if (doesPlayerPass(rowAndColumn)) {
-            consecutivePasses++;
-        } else {
-            consecutivePasses = 0;
-        }
-        return consecutivePasses == 2;
-    }
-
-    void testPlay(int row, int column, boolean isCurrentPlayerWhite) {
-        this.isCurrentPlayerWhite = isCurrentPlayerWhite;
+      if (isGameOver(rowAndColumn)) {
+        break;
+      }
+      if (doesPlayerPass(rowAndColumn)) {
+        System.out.println("Player passed");
+      } else {
         move(row, column);
         kick(row, column);
-        draw();
-        nextPlayer();
+      }
+      draw();
+      nextPlayer();
     }
+    gameOver();
+  }
 
-    private void move(int row, int column) {
-        OutputService.printCurrentPlayer(isCurrentPlayerWhite);
-        setStone(row, column);
+  private void gameOver() {
+    addTerritoryPoints();
+    OutputService.gameOver(pointsWhite, pointsBlack);
+  }
+
+  private boolean isGameOver(int[] rowAndColumn) {
+    if (doesPlayerPass(rowAndColumn)) {
+      consecutivePasses++;
+    } else {
+      consecutivePasses = 0;
     }
+    return consecutivePasses == 2;
+  }
 
-    private void kick(int row, int column) {
-        kickService.reset();
-        kickService.findAndKickDeadStones(row, column);
+  void testPlay(int row, int column, boolean isCurrentPlayerWhite) {
+    this.isCurrentPlayerWhite = isCurrentPlayerWhite;
+    move(row, column);
+    kick(row, column);
+    draw();
+    nextPlayer();
+  }
 
-        pointsWhite += kickService.getPointsWhite();
-        pointsBlack += kickService.getPointsBlack();
-    }
+  private void move(int row, int column) {
+    OutputService.printCurrentPlayer(isCurrentPlayerWhite);
+    setStone(row, column);
+  }
 
-    void addTerritoryPoints() {
-        pointsWhite += territoryService.getPointsWhite();
-        pointsBlack += territoryService.getPointsBlack();
-    }
+  private void kick(int row, int column) {
+    kickService.reset();
+    kickService.findAndKickDeadStones(row, column);
 
-    public void draw() {
-        OutputService.draw(gameBoard);
-    }
+    pointsWhite += kickService.getPointsWhite();
+    pointsBlack += kickService.getPointsBlack();
+  }
 
-    private void nextPlayer() {
-        isCurrentPlayerWhite = !isCurrentPlayerWhite;
-    }
+  void addTerritoryPoints() {
+    pointsWhite += territoryService.getPointsWhite();
+    pointsBlack += territoryService.getPointsBlack();
+  }
 
-    private void setStone(int row, int column) {
-        gameBoard[row][column] = new Stone(isCurrentPlayerWhite);
-    }
+  public void draw() {
+    OutputService.draw(gameBoard);
+  }
 
-    private boolean doesPlayerPass(int[] rowAndColumn) {
-        return rowAndColumn[0] == -1337 || rowAndColumn[1] == -1337;
-    }
+  private void nextPlayer() {
+    isCurrentPlayerWhite = !isCurrentPlayerWhite;
+  }
+
+  private void setStone(int row, int column) {
+    gameBoard[row][column] = new Stone(isCurrentPlayerWhite);
+  }
+
+  private boolean doesPlayerPass(int[] rowAndColumn) {
+    return rowAndColumn[0] == -1337 || rowAndColumn[1] == -1337;
+  }
 }
