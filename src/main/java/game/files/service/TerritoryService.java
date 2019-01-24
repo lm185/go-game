@@ -111,12 +111,10 @@ public class TerritoryService {
 
   private boolean isFieldPartOfTerritory(int row, int column) {
     try {
-      if (gameBoard[row][column] == null && !isPartOfMarkedTerritory[row][column]) {
-        return true;
-      }
+      return (gameBoard[row][column] == null && !isPartOfMarkedTerritory[row][column]);
     } catch (ArrayIndexOutOfBoundsException ignored) {
+      return false;
     }
-    return false;
   }
 
   private void markTerritoryBorder(int i, int j) {

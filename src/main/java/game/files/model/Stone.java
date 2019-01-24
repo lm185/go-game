@@ -7,18 +7,18 @@ import org.springframework.stereotype.Component;
 @Component
 public class Stone {
 
-    private boolean isWhite;
-    public boolean isPartOfGroup = false;
+  private boolean isWhite;
+  public boolean isPartOfGroup = false;
 
-    public Stone() {
+  public Stone() {
 
-    }
+  }
 
-    public Stone(boolean isWhite) {
-        this.isWhite = isWhite;
-    }
+  public Stone(boolean isWhite) {
+    this.isWhite = isWhite;
+  }
 
-    public boolean isStoneWhite() {
-        return this.isWhite;
-    }
+  public boolean isStoneWhite() {
+    return this.isWhite;
+  }
 }

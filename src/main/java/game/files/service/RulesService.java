@@ -54,7 +54,7 @@ public class RulesService {
             || previousStance[i][j] != null && gameBoard[i][j] == null) {
           return true;
         }
-        if (previousStance[i][j] != null & gameBoard[i][j] != null) {
+        if (previousStance[i][j] != null && gameBoard[i][j] != null) {
           if (previousStance[i][j].isWhite() != gameBoard[i][j].isWhite()) {
             return true;
           }
