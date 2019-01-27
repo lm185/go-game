@@ -169,7 +169,7 @@ public class KickServiceTest {
         fakeBoard[2][8] = new Stone(true);
         KickService kickService = new KickService(fakeBoard);
 
-        kickService.findAndKickDeadStones(0, 5);
+        kickService.removeDeadGroups(0, 5);
 
         Assert.assertEquals(0, kickService.getPointsBlack());
         Assert.assertEquals(9, kickService.getPointsWhite());
@@ -215,7 +215,7 @@ public class KickServiceTest {
         fakeBoard[4][6] = new Stone(false);
         KickService kickService = new KickService(fakeBoard);
 
-        kickService.findAndKickDeadStones(0, 2);
+        kickService.removeDeadGroups(0, 2);
 
         Assert.assertEquals(9, kickService.getPointsWhite());
         Assert.assertEquals(2, kickService.getPointsBlack());

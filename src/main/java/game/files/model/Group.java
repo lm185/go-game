@@ -1,5 +1,6 @@
 package game.files.model;
 
+import game.files.service.LibertiesService;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
@@ -9,7 +10,7 @@ public class Group {
 
   private Stone[][] gameBoard;
   private int boardHeight;
-  private Liberties liberties;
+  private LibertiesService libertiesService;
 
   public Group() {
   }
@@ -17,7 +18,7 @@ public class Group {
   public Group(Stone[][] gameBoard) {
     this.gameBoard = gameBoard;
     this.boardHeight = gameBoard.length;
-    this.liberties = new Liberties(gameBoard);
+    this.libertiesService = new LibertiesService(gameBoard);
   }
 
   public void findGroup(int row, int column) {
@@ -58,15 +59,15 @@ public class Group {
     for (int i = 0; i < boardHeight; i++) {
       for (int j = 0; j < boardHeight; j++) {
         if (gameBoard[i][j] != null && gameBoard[i][j].isPartOfGroup) {
-          libertiesGroup += liberties.findLibertiesForStone(i, j);
-          connectionsGroup += liberties.findConnectionsForStone(i, j);
+          libertiesGroup += libertiesService.findLibertiesForStone(i, j);
+          connectionsGroup += libertiesService.findConnectionsForStone(i, j);
         }
       }
     }
     return libertiesGroup - connectionsGroup != 0;
   }
 
-  public void resetGroupSelection() {
+  public void resetSelection() {
     for (int i = 0; i < boardHeight; i++) {
       for (int j = 0; j < boardHeight; j++) {
         if (gameBoard[i][j] != null) {

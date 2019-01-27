@@ -28,8 +28,9 @@ public class InputService {
     if (input.length() <= 0) {
       return -1;
     }
-    if (input.toLowerCase()
-        .equals("pass")) { // Checks if the player actually wants to make a move or pass
+
+    // Checks if the player actually wants to make a move or pass
+    if (input.toLowerCase().equals("pass")) {
       return -1337;
     }
     if (input.matches("^[0-9]*$")) {
@@ -85,12 +86,12 @@ public class InputService {
 
   private int findSize() {
     System.out.println("Board Size?");
-    int n = scanInput();
-    while (n <= 0 || n > 19) {
+    int size = scanInput();
+    while (size <= 0 || size > 19) {
       System.out.println("Please enter a positive value below 20");
-      n = scanInput();
+      size = scanInput();
     }
     System.out.println();
-    return n;
+    return size;
   }
 }

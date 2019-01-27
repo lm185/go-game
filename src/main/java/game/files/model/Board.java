@@ -3,7 +3,6 @@ package game.files.model;
 import game.files.service.InputService;
 import game.files.service.KickService;
 import game.files.service.OutputService;
-import game.files.service.RulesService;
 import game.files.service.TerritoryService;
 import lombok.Data;
 import org.springframework.stereotype.Component;
@@ -15,9 +14,6 @@ public class Board {
   private Stone[][] gameBoard;
   private boolean isCurrentPlayerWhite = false;
   private InputService inputService;
-  private KickService kickService;
-  private TerritoryService territoryService;
-  private RulesService rulesService;
   private int pointsWhite = 0;
   private int pointsBlack = 0;
   private int consecutivePasses = 0;
@@ -27,16 +23,11 @@ public class Board {
 
   public Board(Stone[][] gameBoard) { //For Testing Purpose
     this.gameBoard = gameBoard;
-    this.kickService = new KickService(gameBoard);
-    this.territoryService = new TerritoryService(gameBoard);
-    this.rulesService = new RulesService(gameBoard);
   }
 
   public Board(InputService inputService) {
     this.inputService = inputService;
     this.gameBoard = inputService.getGameBoard();
-    this.kickService = new KickService(gameBoard);
-    this.rulesService = new RulesService(gameBoard);
   }
 
   public void play() {
@@ -94,20 +85,21 @@ public class Board {
   }
 
   private void kick(int row, int column) {
-    kickService.reset();
-    kickService.findAndKickDeadStones(row, column);
+    KickService kickService = new KickService(copyBoard());
+    setGameBoard(kickService.removeDeadGroups(row, column));
 
     pointsWhite += kickService.getPointsWhite();
     pointsBlack += kickService.getPointsBlack();
   }
 
   void addTerritoryPoints() {
+    TerritoryService territoryService = new TerritoryService(copyBoard());
     pointsWhite += territoryService.getPointsWhite();
     pointsBlack += territoryService.getPointsBlack();
   }
 
   public void draw() {
-    OutputService.draw(gameBoard);
+    OutputService.draw(this.gameBoard);
   }
 
   private void nextPlayer() {
@@ -120,5 +112,17 @@ public class Board {
 
   private boolean doesPlayerPass(int[] rowAndColumn) {
     return rowAndColumn[0] == -1337 || rowAndColumn[1] == -1337;
+  }
+
+  public Stone[][] copyBoard() {
+    Stone[][] destination = new Stone[gameBoard.length][gameBoard.length];
+    for (int i = 0; i < gameBoard.length; i++) {
+      for (int j = 0; j < gameBoard.length; j++) {
+        if (gameBoard[i][j] != null) {
+          destination[i][j] = new Stone(gameBoard[i][j].isWhite());
+        }
+      }
+    }
+    return destination;
   }
 }

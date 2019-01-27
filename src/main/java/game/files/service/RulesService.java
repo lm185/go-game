@@ -1,5 +1,6 @@
 package game.files.service;
 
+import game.files.model.Board;
 import game.files.model.Stone;
 import lombok.Data;
 import org.springframework.stereotype.Service;
@@ -15,11 +16,11 @@ public class RulesService {
 
   // Can not put Stone where he would instantly die rule
   public boolean doesStoneDie(int playedRow, int playedColumn, boolean isWhite) {
-    Stone[][] testBoard = copyBoard();
+    Stone[][] testBoard = new Board(gameBoard).copyBoard();
     testBoard[playedRow][playedColumn] = new Stone(isWhite);
 
     KickService kickService = new KickService(testBoard);
-    kickService.findAndKickDeadStones(playedRow, playedColumn);
+    kickService.removeDeadGroups(playedRow, playedColumn);
 
     return testBoard[playedRow][playedColumn] == null;
   }
@@ -33,18 +34,9 @@ public class RulesService {
   }
 
   private void saveStance() {
-    this.previousStance = copyBoard();
+    this.previousStance = new Board(gameBoard).copyBoard();
   }
 
-  private Stone[][] copyBoard() {
-    Stone[][] destination = new Stone[gameBoard.length][gameBoard.length];
-    for (int i = 0; i < gameBoard.length; i++) {
-      for (int j = 0; j < gameBoard.length; j++) {
-        destination[i][j] = new Stone(gameBoard[i][j].isWhite());
-      }
-    }
-    return destination;
-  }
 
   private boolean didBoardChange() {
     //TODO tests

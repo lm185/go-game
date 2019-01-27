@@ -25,9 +25,11 @@ public class KickService {
     this.group = new Group(gameBoard);
   }
 
-  public void findAndKickDeadStones(int row, int column) {
+  public Stone[][] removeDeadGroups(int row, int column) {
+    this.group = new Group(this.gameBoard);
     kickAllAdjacentDeadGroups(row, column);
     removeAllDeadGroups();
+    return gameBoard;
   }
 
   void kickAllAdjacentDeadGroups(int row, int column) {
@@ -77,7 +79,7 @@ public class KickService {
     if (!group.isGroupAlive()) {
       kickSelectedGroup();
     }
-    group.resetGroupSelection();
+    group.resetSelection();
   }
 
   private void kickSelectedGroup() {
@@ -93,12 +95,6 @@ public class KickService {
         }
       }
     }
-  }
-
-  public void reset() {
-    group.resetGroupSelection();
-    pointsBlack = 0;
-    pointsWhite = 0;
   }
 
   private void removeStone(int row, int column) {

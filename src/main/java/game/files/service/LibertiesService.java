@@ -1,25 +1,25 @@
-package game.files.model;
+package game.files.service;
 
+import game.files.model.Stone;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
 @Data
 @Component
-class Liberties {
+public class LibertiesService {
 
   private Stone[][] gameBoard;
   private int boardHeight;
 
-  Liberties() {
-
+  public LibertiesService() {
   }
 
-  Liberties(Stone[][] gameBoard) {
+  public LibertiesService(Stone[][] gameBoard) {
     this.gameBoard = gameBoard;
     this.boardHeight = gameBoard.length;
   }
 
-  int findConnectionsForStone(int row, int column) {
+  public int findConnectionsForStone(int row, int column) {
     boolean isStoneWhite = gameBoard[row][column].isStoneWhite();
     int connectionCounter = 0;
 
@@ -39,7 +39,7 @@ class Liberties {
     return connectionCounter;
   }
 
-  int findLibertiesForStone(int row, int column) {
+  public int findLibertiesForStone(int row, int column) {
     int libertiesCounter = 4;
     boolean isStoneWhite = gameBoard[row][column].isStoneWhite();
 

@@ -1,7 +1,5 @@
 package game.files.model;
 
-import game.files.model.Group;
-import game.files.model.Stone;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -178,7 +176,7 @@ public class GroupTest {
         Assert.assertFalse(fakeBoard[4][0].isPartOfGroup);
         Assert.assertFalse(fakeBoard[4][8].isPartOfGroup);
 
-        group.resetGroupSelection();
+        group.resetSelection();
         group.findGroup(5, 3);
 
         Assert.assertTrue(fakeBoard[3][0].isPartOfGroup);
