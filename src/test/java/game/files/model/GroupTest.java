@@ -1,6 +1,8 @@
 package game.files.model;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
@@ -105,7 +107,17 @@ public class GroupTest {
   }
 
   @Test
-  public void groupIds() {
+  public void groupIdsDiffer() {
+    group.markGroups();
+    int firstId = fakeBoard[1][0].getGroupId();
+    int secondId = fakeBoard[3][0].getGroupId();
+    int thirdId = fakeBoard[6][0].getGroupId();
+
+    assertFalse(firstId == secondId || firstId == thirdId || secondId == thirdId);
+  }
+
+  @Test
+  public void groupCorrectIds() {
     group.markGroups();
     int firstId = fakeBoard[1][0].getGroupId();
     int secondId = fakeBoard[3][0].getGroupId();
