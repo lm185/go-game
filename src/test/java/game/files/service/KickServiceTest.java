@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import game.files.model.Stone;
+import java.util.HashSet;
 import org.junit.Test;
 
 public class KickServiceTest {
@@ -17,8 +18,8 @@ public class KickServiceTest {
     fakeBoard[0][1] = new Stone(false);
     KickService kickService = new KickService(fakeBoard);
 
-    kickService.markGroups();
-    kickService.kickDeadGroupsByOrder();
+    HashSet<Integer> ids = kickService.markGroups();
+    kickService.kickDeadGroupsByOrder(ids);
 
     assertNull(fakeBoard[0][0]);
     assertNotNull(fakeBoard[1][0]);
@@ -35,8 +36,8 @@ public class KickServiceTest {
     fakeBoard[1][0] = new Stone(false);
 
     KickService kickService = new KickService(fakeBoard);
-    kickService.markGroups();
-    kickService.kickDeadGroupsByOrder();
+    HashSet<Integer> ids = kickService.markGroups();
+    kickService.kickDeadGroupsByOrder(ids);
 
     assertNotNull(fakeBoard[0][0]);
     assertEquals(0, kickService.getPointsBlack());
@@ -56,8 +57,8 @@ public class KickServiceTest {
     fakeBoard[4][6] = new Stone(false);
 
     KickService kickService = new KickService(fakeBoard);
-    kickService.markGroups();
-    kickService.kickDeadGroupsByOrder();
+    HashSet<Integer> ids = kickService.markGroups();
+    kickService.kickDeadGroupsByOrder(ids);
 
     assertNull(fakeBoard[4][4]);
     assertNull(fakeBoard[4][5]);
