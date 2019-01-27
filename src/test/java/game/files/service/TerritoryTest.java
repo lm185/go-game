@@ -1,8 +1,11 @@
 package game.files.service;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import game.files.model.Board;
 import game.files.model.Stone;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -77,7 +80,7 @@ public class TerritoryTest {
 
     territoryService.markTerritory(4, 1);
 
-    Assert.assertEquals(expectedTerritoryBorder, territoryService.getIsTerritoryBorder());
+    assertEquals(expectedTerritoryBorder, territoryService.getIsTerritoryBorder());
   }
 
   @Test
@@ -96,7 +99,7 @@ public class TerritoryTest {
 
     territoryService.markTerritory(0, 0);
 
-    Assert.assertEquals(expectedTerritoryBorder, territoryService.getIsTerritoryBorder());
+    assertEquals(expectedTerritoryBorder, territoryService.getIsTerritoryBorder());
   }
 
   @Test
@@ -121,8 +124,8 @@ public class TerritoryTest {
 
     territoryService.markTerritory(4, 1);
 
-    Assert.assertEquals(expectedTerritory, territoryService.getIsPartOfMarkedTerritory());
-    Assert.assertEquals(countedFields, territoryService.getIsFieldCounted());
+    assertEquals(expectedTerritory, territoryService.getIsPartOfMarkedTerritory());
+    assertEquals(countedFields, territoryService.getIsFieldCounted());
   }
 
   @Test
@@ -169,8 +172,8 @@ public class TerritoryTest {
 
     territoryService.markTerritory(7, 5);
 
-    Assert.assertEquals(expectedTerritory, territoryService.getIsPartOfMarkedTerritory());
-    Assert.assertEquals(countedFields, territoryService.getIsFieldCounted());
+    assertEquals(expectedTerritory, territoryService.getIsPartOfMarkedTerritory());
+    assertEquals(countedFields, territoryService.getIsFieldCounted());
   }
 
   @Test
@@ -179,7 +182,7 @@ public class TerritoryTest {
 
     territoryService.markTerritory(4, 2);
 
-    Assert.assertTrue(territoryService.isTerritoryWhite());
+    assertTrue(territoryService.isTerritoryWhite());
   }
 
   @Test
@@ -188,7 +191,7 @@ public class TerritoryTest {
 
     territoryService.markTerritory(0, 0);
 
-    Assert.assertTrue(territoryService.isTerritoryBlack());
+    assertTrue(territoryService.isTerritoryBlack());
   }
 
   @Test
@@ -197,20 +200,20 @@ public class TerritoryTest {
 
     territoryService.markTerritory(2, 4);
 
-    Assert.assertFalse(territoryService.isTerritoryBlack());
-    Assert.assertFalse(territoryService.isTerritoryWhite());
+    assertFalse(territoryService.isTerritoryBlack());
+    assertFalse(territoryService.isTerritoryWhite());
   }
 
   @Test
   public void whitePoints() {
     TerritoryService territoryService = new TerritoryService(board.getGameBoard());
-    Assert.assertEquals(7, territoryService.getPointsWhite());
+    assertEquals(7, territoryService.getPointsWhite());
   }
 
   @Test
   public void blackPoints() {
     TerritoryService territoryService = new TerritoryService(board.getGameBoard());
-    Assert.assertEquals(27, territoryService.getPointsBlack());
+    assertEquals(27, territoryService.getPointsBlack());
   }
 
   @Test
@@ -219,7 +222,7 @@ public class TerritoryTest {
     foo[3][4] = new Stone(false);
     TerritoryService territoryService = new TerritoryService(foo);
 
-    Assert.assertEquals(80, territoryService.getPointsBlack());
+    assertEquals(80, territoryService.getPointsBlack());
   }
 
   @Test
@@ -235,14 +238,14 @@ public class TerritoryTest {
 
     TerritoryService territoryService = new TerritoryService(fakeBoard);
 
-    Assert.assertEquals(2, territoryService.getPointsBlack());
+    assertEquals(2, territoryService.getPointsBlack());
   }
 
   @Test
   public void noStonePlaced() {
     Stone[][] fakeBoard = new Stone[9][9];
     TerritoryService territoryService = new TerritoryService(fakeBoard);
-    Assert.assertEquals(0, territoryService.getPointsBlack());
-    Assert.assertEquals(0, territoryService.getPointsWhite());
+    assertEquals(0, territoryService.getPointsBlack());
+    assertEquals(0, territoryService.getPointsWhite());
   }
 }

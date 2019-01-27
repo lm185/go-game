@@ -1,26 +1,30 @@
 package game.files.service;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
 import game.files.model.Stone;
-import org.junit.Assert;
 import org.junit.Test;
 
 public class KickServiceTest {
 
   @Test
-  public void edgeStoneNoLiberties() {
+  public void edgeStoneDead() {
     Stone[][] fakeBoard = new Stone[9][9];
     fakeBoard[0][0] = new Stone(true);
     fakeBoard[1][0] = new Stone(false);
     fakeBoard[0][1] = new Stone(false);
-
     KickService kickService = new KickService(fakeBoard);
+
     kickService.markGroups();
-    kickService.kickOtherDeadGroups();
-    Assert.assertNull(fakeBoard[0][0]);
-    Assert.assertNotNull(fakeBoard[1][0]);
-    Assert.assertNotNull(fakeBoard[0][1]);
-    Assert.assertEquals(1, kickService.getPointsBlack());
-    Assert.assertEquals(0, kickService.getPointsWhite());
+    kickService.kickDeadGroupsByOrder();
+
+    assertNull(fakeBoard[0][0]);
+    assertNotNull(fakeBoard[1][0]);
+    assertNotNull(fakeBoard[0][1]);
+    assertEquals(1, kickService.getPointsBlack());
+    assertEquals(0, kickService.getPointsWhite());
 
   }
 
@@ -31,15 +35,16 @@ public class KickServiceTest {
     fakeBoard[1][0] = new Stone(false);
 
     KickService kickService = new KickService(fakeBoard);
-    kickService.kickOtherDeadGroups();
+    kickService.markGroups();
+    kickService.kickDeadGroupsByOrder();
 
-    Assert.assertNotNull(fakeBoard[0][0]);
-    Assert.assertEquals(0, kickService.getPointsBlack());
-    Assert.assertEquals(0, kickService.getPointsWhite());
+    assertNotNull(fakeBoard[0][0]);
+    assertEquals(0, kickService.getPointsBlack());
+    assertEquals(0, kickService.getPointsWhite());
   }
 
   @Test
-  public void deadGroupIsKicked() {
+  public void deadGroup() {
     Stone[][] fakeBoard = new Stone[9][9];
     fakeBoard[4][4] = new Stone(true);
     fakeBoard[4][5] = new Stone(true);
@@ -52,12 +57,12 @@ public class KickServiceTest {
 
     KickService kickService = new KickService(fakeBoard);
     kickService.markGroups();
-    kickService.kickOtherDeadGroups();
+    kickService.kickDeadGroupsByOrder();
 
-    Assert.assertNull(fakeBoard[4][4]);
-    Assert.assertNull(fakeBoard[4][5]);
-    Assert.assertEquals(2, kickService.getPointsBlack());
-    Assert.assertEquals(0, kickService.getPointsWhite());
+    assertNull(fakeBoard[4][4]);
+    assertNull(fakeBoard[4][5]);
+    assertEquals(2, kickService.getPointsBlack());
+    assertEquals(0, kickService.getPointsWhite());
   }
 
   @Test
@@ -74,10 +79,10 @@ public class KickServiceTest {
 
     kickService.kickAllDeadGroups(3, 5);
 
-    Assert.assertNotNull(fakeBoard[4][4]);
-    Assert.assertNotNull(fakeBoard[4][5]);
-    Assert.assertEquals(0, kickService.getPointsBlack());
-    Assert.assertEquals(0, kickService.getPointsWhite());
+    assertNotNull(fakeBoard[4][4]);
+    assertNotNull(fakeBoard[4][5]);
+    assertEquals(0, kickService.getPointsBlack());
+    assertEquals(0, kickService.getPointsWhite());
   }
 
   @Test
@@ -92,10 +97,10 @@ public class KickServiceTest {
 
     kickService.kickAllDeadGroups(0, 0);
 
-    Assert.assertEquals(1, kickService.getPointsBlack());
-    Assert.assertEquals(0, kickService.getPointsWhite());
-    Assert.assertNotNull(fakeBoard[0][0]);
-    Assert.assertNull(fakeBoard[0][1]);
+    assertEquals(1, kickService.getPointsBlack());
+    assertEquals(0, kickService.getPointsWhite());
+    assertNotNull(fakeBoard[0][0]);
+    assertNull(fakeBoard[0][1]);
   }
 
   @Test
@@ -132,8 +137,8 @@ public class KickServiceTest {
 
     kickService.kickAllDeadGroups(0, 5);
 
-    Assert.assertEquals(0, kickService.getPointsBlack());
-    Assert.assertEquals(9, kickService.getPointsWhite());
+    assertEquals(0, kickService.getPointsBlack());
+    assertEquals(9, kickService.getPointsWhite());
   }
 
   @Test
@@ -170,8 +175,8 @@ public class KickServiceTest {
 
     kickService.kickAllDeadGroups(0, 5);
 
-    Assert.assertEquals(0, kickService.getPointsBlack());
-    Assert.assertEquals(9, kickService.getPointsWhite());
+    assertEquals(0, kickService.getPointsBlack());
+    assertEquals(9, kickService.getPointsWhite());
   }
 
   @Test
@@ -216,7 +221,7 @@ public class KickServiceTest {
 
     kickService.kickAllDeadGroups(0, 2);
 
-    Assert.assertEquals(9, kickService.getPointsWhite());
-    Assert.assertEquals(2, kickService.getPointsBlack());
+    assertEquals(9, kickService.getPointsWhite());
+    assertEquals(2, kickService.getPointsBlack());
   }
 }

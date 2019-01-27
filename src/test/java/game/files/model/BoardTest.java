@@ -1,7 +1,8 @@
 package game.files.model;
 
+import static org.junit.Assert.assertEquals;
+
 import game.files.service.InputService;
-import org.junit.Assert;
 import org.junit.Test;
 
 public class BoardTest {
@@ -52,7 +53,7 @@ public class BoardTest {
     Board board = new Board(fakeBoard);
     board.draw();
     board.testPlay(0, 8, true, new InputService());
-    Assert.assertEquals(2, board.getPointsBlack());
+    assertEquals(2, board.getPointsBlack());
   }
 
 
@@ -97,12 +98,12 @@ public class BoardTest {
     Board board = new Board(fakeBoard);
     board.draw();
     board.testPlay(0, 8, true, new InputService());
-    Assert.assertEquals(2, board.getPointsBlack());
+    assertEquals(2, board.getPointsBlack());
 
     board.addTerritoryPoints();
 
-    Assert.assertEquals(18, board.getPointsWhite());
-    Assert.assertEquals(4, board.getPointsBlack());
+    assertEquals(18, board.getPointsWhite());
+    assertEquals(4, board.getPointsBlack());
   }
 
   @Test
@@ -120,7 +121,7 @@ public class BoardTest {
     board.addTerritoryPoints();
     board.draw();
 
-    Assert.assertEquals(2, board.getPointsWhite());
+    assertEquals(2, board.getPointsWhite());
   }
 
   @Test
@@ -138,6 +139,6 @@ public class BoardTest {
     board.addTerritoryPoints();
     board.draw();
 
-    Assert.assertEquals(2, board.getPointsBlack());
+    assertEquals(2, board.getPointsBlack());
   }
 }

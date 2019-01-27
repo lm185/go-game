@@ -32,7 +32,7 @@ public class KickService {
   public Stone[][] kickAllDeadGroups(int row, int column) {
     markGroups();
     kickAdjacentDeadGroups(row, column);
-    kickOtherDeadGroups();
+    kickDeadGroupsByOrder();
     return gameBoard;
   }
 
@@ -73,7 +73,7 @@ public class KickService {
     return false;
   }
 
-  void kickOtherDeadGroups() {
+  void kickDeadGroupsByOrder() {
     for (int i = 0; i < boardHeight; i++) {
       for (int j = 0; j < boardHeight; j++) {
         kickGroupIfDead(i, j);
