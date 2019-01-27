@@ -1,5 +1,6 @@
 package game.files.model;
 
+import game.files.service.InputService;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -50,9 +51,10 @@ public class BoardTest {
 
     Board board = new Board(fakeBoard);
     board.draw();
-    board.testPlay(0, 8, true);
+    board.testPlay(0, 8, true, new InputService());
     Assert.assertEquals(2, board.getPointsBlack());
   }
+
 
   @Test
   public void territoryPoints() {
@@ -94,7 +96,7 @@ public class BoardTest {
     fakeBoard[4][6] = new Stone(false);
     Board board = new Board(fakeBoard);
     board.draw();
-    board.testPlay(0, 8, true);
+    board.testPlay(0, 8, true, new InputService());
     Assert.assertEquals(2, board.getPointsBlack());
 
     board.addTerritoryPoints();

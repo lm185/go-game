@@ -68,15 +68,15 @@ public class GroupTest {
   public void groupMarked() {
     group.markGroups();
 
-    assertTrue(fakeBoard[1][0].isPartOfGroup);
-    assertTrue(fakeBoard[1][1].isPartOfGroup);
-    assertTrue(fakeBoard[1][2].isPartOfGroup);
-    assertTrue(fakeBoard[1][3].isPartOfGroup);
-    assertTrue(fakeBoard[1][4].isPartOfGroup);
-    assertTrue(fakeBoard[1][5].isPartOfGroup);
-    assertTrue(fakeBoard[1][6].isPartOfGroup);
-    assertTrue(fakeBoard[1][7].isPartOfGroup);
-    assertTrue(fakeBoard[1][8].isPartOfGroup);
+    assertTrue(fakeBoard[1][0].isPartOfGroup());
+    assertTrue(fakeBoard[1][1].isPartOfGroup());
+    assertTrue(fakeBoard[1][2].isPartOfGroup());
+    assertTrue(fakeBoard[1][3].isPartOfGroup());
+    assertTrue(fakeBoard[1][4].isPartOfGroup());
+    assertTrue(fakeBoard[1][5].isPartOfGroup());
+    assertTrue(fakeBoard[1][6].isPartOfGroup());
+    assertTrue(fakeBoard[1][7].isPartOfGroup());
+    assertTrue(fakeBoard[1][8].isPartOfGroup());
   }
 
   @Test
@@ -109,26 +109,26 @@ public class GroupTest {
   @Test
   public void whiteGroup() {
     group.markGroups();
-    assertTrue(fakeBoard[3][0].isPartOfGroup);
-    assertTrue(fakeBoard[3][1].isPartOfGroup);
-    assertTrue(fakeBoard[3][2].isPartOfGroup);
-    assertTrue(fakeBoard[3][3].isPartOfGroup);
-    assertTrue(fakeBoard[3][4].isPartOfGroup);
-    assertTrue(fakeBoard[3][5].isPartOfGroup);
-    assertTrue(fakeBoard[3][6].isPartOfGroup);
-    assertTrue(fakeBoard[3][7].isPartOfGroup);
-    assertTrue(fakeBoard[3][8].isPartOfGroup);
-    assertTrue(fakeBoard[5][0].isPartOfGroup);
-    assertTrue(fakeBoard[5][1].isPartOfGroup);
-    assertTrue(fakeBoard[5][2].isPartOfGroup);
-    assertTrue(fakeBoard[5][3].isPartOfGroup);
-    assertTrue(fakeBoard[5][4].isPartOfGroup);
-    assertTrue(fakeBoard[5][5].isPartOfGroup);
-    assertTrue(fakeBoard[5][6].isPartOfGroup);
-    assertTrue(fakeBoard[5][7].isPartOfGroup);
-    assertTrue(fakeBoard[5][8].isPartOfGroup);
-    assertTrue(fakeBoard[4][0].isPartOfGroup);
-    assertTrue(fakeBoard[4][8].isPartOfGroup);
+    assertTrue(fakeBoard[3][0].isPartOfGroup());
+    assertTrue(fakeBoard[3][1].isPartOfGroup());
+    assertTrue(fakeBoard[3][2].isPartOfGroup());
+    assertTrue(fakeBoard[3][3].isPartOfGroup());
+    assertTrue(fakeBoard[3][4].isPartOfGroup());
+    assertTrue(fakeBoard[3][5].isPartOfGroup());
+    assertTrue(fakeBoard[3][6].isPartOfGroup());
+    assertTrue(fakeBoard[3][7].isPartOfGroup());
+    assertTrue(fakeBoard[3][8].isPartOfGroup());
+    assertTrue(fakeBoard[5][0].isPartOfGroup());
+    assertTrue(fakeBoard[5][1].isPartOfGroup());
+    assertTrue(fakeBoard[5][2].isPartOfGroup());
+    assertTrue(fakeBoard[5][3].isPartOfGroup());
+    assertTrue(fakeBoard[5][4].isPartOfGroup());
+    assertTrue(fakeBoard[5][5].isPartOfGroup());
+    assertTrue(fakeBoard[5][6].isPartOfGroup());
+    assertTrue(fakeBoard[5][7].isPartOfGroup());
+    assertTrue(fakeBoard[5][8].isPartOfGroup());
+    assertTrue(fakeBoard[4][0].isPartOfGroup());
+    assertTrue(fakeBoard[4][8].isPartOfGroup());
   }
 
 

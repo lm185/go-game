@@ -71,7 +71,8 @@ public class Board {
     return consecutivePasses == 2;
   }
 
-  void testPlay(int row, int column, boolean isCurrentPlayerWhite) {
+  void testPlay(int row, int column, boolean isCurrentPlayerWhite, InputService inputService) {
+    this.inputService = inputService;
     this.isCurrentPlayerWhite = isCurrentPlayerWhite;
     move(row, column);
     kick(row, column);

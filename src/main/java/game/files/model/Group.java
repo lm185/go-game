@@ -26,7 +26,7 @@ public class Group {
     int groupId = 1;
     for (int i = 0; i < boardHeight; i++) {
       for (int j = 0; j < boardHeight; j++) {
-        if (gameBoard[i][j] != null && !gameBoard[i][j].isPartOfGroup) {
+        if (gameBoard[i][j] != null && !gameBoard[i][j].isPartOfGroup()) {
           markGroup(i, j, groupId);
           groupId++;
         }
@@ -61,7 +61,7 @@ public class Group {
 
   private boolean isStonePartOfGroup(int row, int column, boolean isGroupWhite) {
     try {
-      return gameBoard[row][column] != null && !gameBoard[row][column].isPartOfGroup
+      return gameBoard[row][column] != null && !gameBoard[row][column].isPartOfGroup()
           && gameBoard[row][column].isStoneWhite() == isGroupWhite;
     } catch (ArrayIndexOutOfBoundsException ignored) {
       return false;

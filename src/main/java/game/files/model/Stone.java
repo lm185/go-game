@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 public class Stone {
 
   private boolean isWhite;
-  public boolean isPartOfGroup = false;
+  private boolean isPartOfGroup = false;
   private int groupId;
 
   public Stone() {
