@@ -1,5 +1,2 @@
 language: java
-os: osx
-jdk:
-  - 1.8
 
