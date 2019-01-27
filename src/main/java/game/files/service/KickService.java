@@ -37,6 +37,9 @@ public class KickService {
   }
 
   private void kickAdjacentDeadGroups(int row, int column) {
+    if (gameBoard[row][column] == null) {
+      return;
+    }
     /*
      * Checks adjacent fields. If they are from the enemy and the group is dead they are kicked.
      * This is to ensure kick integrity. If a player A puts a stone at a point where
