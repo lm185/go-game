@@ -1,10 +1,8 @@
 package game.files.model;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import game.files.service.OutputService;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -58,14 +56,12 @@ public class GroupTest {
     fakeBoard[6][7] = new Stone(false);
     fakeBoard[6][8] = new Stone(false);
 
-    OutputService.draw(fakeBoard);
-
     this.group = new Group(fakeBoard);
   }
 
 
   @Test
-  public void groupMarked() {
+  public void groupsMarked() {
     group.markGroups();
 
     assertTrue(fakeBoard[1][0].isPartOfGroup());
@@ -77,13 +73,43 @@ public class GroupTest {
     assertTrue(fakeBoard[1][6].isPartOfGroup());
     assertTrue(fakeBoard[1][7].isPartOfGroup());
     assertTrue(fakeBoard[1][8].isPartOfGroup());
+    assertTrue(fakeBoard[3][0].isPartOfGroup());
+    assertTrue(fakeBoard[3][1].isPartOfGroup());
+    assertTrue(fakeBoard[3][2].isPartOfGroup());
+    assertTrue(fakeBoard[3][3].isPartOfGroup());
+    assertTrue(fakeBoard[3][4].isPartOfGroup());
+    assertTrue(fakeBoard[3][5].isPartOfGroup());
+    assertTrue(fakeBoard[3][6].isPartOfGroup());
+    assertTrue(fakeBoard[3][7].isPartOfGroup());
+    assertTrue(fakeBoard[3][8].isPartOfGroup());
+    assertTrue(fakeBoard[4][0].isPartOfGroup());
+    assertTrue(fakeBoard[4][8].isPartOfGroup());
+    assertTrue(fakeBoard[5][0].isPartOfGroup());
+    assertTrue(fakeBoard[5][1].isPartOfGroup());
+    assertTrue(fakeBoard[5][2].isPartOfGroup());
+    assertTrue(fakeBoard[5][3].isPartOfGroup());
+    assertTrue(fakeBoard[5][4].isPartOfGroup());
+    assertTrue(fakeBoard[5][5].isPartOfGroup());
+    assertTrue(fakeBoard[5][6].isPartOfGroup());
+    assertTrue(fakeBoard[5][7].isPartOfGroup());
+    assertTrue(fakeBoard[5][8].isPartOfGroup());
+    assertTrue(fakeBoard[6][0].isPartOfGroup());
+    assertTrue(fakeBoard[6][1].isPartOfGroup());
+    assertTrue(fakeBoard[6][2].isPartOfGroup());
+    assertTrue(fakeBoard[6][3].isPartOfGroup());
+    assertTrue(fakeBoard[6][4].isPartOfGroup());
+    assertTrue(fakeBoard[6][5].isPartOfGroup());
+    assertTrue(fakeBoard[6][6].isPartOfGroup());
+    assertTrue(fakeBoard[6][7].isPartOfGroup());
+    assertTrue(fakeBoard[6][8].isPartOfGroup());
   }
 
   @Test
   public void groupIds() {
     group.markGroups();
     int firstId = fakeBoard[1][0].getGroupId();
-    int secondId = fakeBoard[6][0].getGroupId();
+    int secondId = fakeBoard[3][0].getGroupId();
+    int thirdId = fakeBoard[6][0].getGroupId();
 
     assertEquals(firstId, fakeBoard[1][0].getGroupId());
     assertEquals(firstId, fakeBoard[1][1].getGroupId());
@@ -95,47 +121,55 @@ public class GroupTest {
     assertEquals(firstId, fakeBoard[1][7].getGroupId());
     assertEquals(firstId, fakeBoard[1][8].getGroupId());
 
-    assertEquals(secondId, fakeBoard[6][0].getGroupId());
-    assertEquals(secondId, fakeBoard[6][1].getGroupId());
-    assertEquals(secondId, fakeBoard[6][2].getGroupId());
-    assertEquals(secondId, fakeBoard[6][3].getGroupId());
-    assertEquals(secondId, fakeBoard[6][4].getGroupId());
-    assertEquals(secondId, fakeBoard[6][5].getGroupId());
-    assertEquals(secondId, fakeBoard[6][6].getGroupId());
-    assertEquals(secondId, fakeBoard[6][7].getGroupId());
-    assertEquals(secondId, fakeBoard[6][8].getGroupId());
-  }
+    assertEquals(secondId, fakeBoard[3][0].getGroupId());
+    assertEquals(secondId, fakeBoard[3][1].getGroupId());
+    assertEquals(secondId, fakeBoard[3][2].getGroupId());
+    assertEquals(secondId, fakeBoard[3][3].getGroupId());
+    assertEquals(secondId, fakeBoard[3][4].getGroupId());
+    assertEquals(secondId, fakeBoard[3][5].getGroupId());
+    assertEquals(secondId, fakeBoard[3][6].getGroupId());
+    assertEquals(secondId, fakeBoard[3][7].getGroupId());
+    assertEquals(secondId, fakeBoard[3][8].getGroupId());
+    assertEquals(secondId, fakeBoard[4][0].getGroupId());
+    assertEquals(secondId, fakeBoard[4][8].getGroupId());
+    assertEquals(secondId, fakeBoard[5][0].getGroupId());
+    assertEquals(secondId, fakeBoard[5][1].getGroupId());
+    assertEquals(secondId, fakeBoard[5][2].getGroupId());
+    assertEquals(secondId, fakeBoard[5][3].getGroupId());
+    assertEquals(secondId, fakeBoard[5][4].getGroupId());
+    assertEquals(secondId, fakeBoard[5][5].getGroupId());
+    assertEquals(secondId, fakeBoard[5][6].getGroupId());
+    assertEquals(secondId, fakeBoard[5][7].getGroupId());
+    assertEquals(secondId, fakeBoard[5][8].getGroupId());
 
-  @Test
-  public void whiteGroup() {
-    group.markGroups();
-    assertTrue(fakeBoard[3][0].isPartOfGroup());
-    assertTrue(fakeBoard[3][1].isPartOfGroup());
-    assertTrue(fakeBoard[3][2].isPartOfGroup());
-    assertTrue(fakeBoard[3][3].isPartOfGroup());
-    assertTrue(fakeBoard[3][4].isPartOfGroup());
-    assertTrue(fakeBoard[3][5].isPartOfGroup());
-    assertTrue(fakeBoard[3][6].isPartOfGroup());
-    assertTrue(fakeBoard[3][7].isPartOfGroup());
-    assertTrue(fakeBoard[3][8].isPartOfGroup());
-    assertTrue(fakeBoard[5][0].isPartOfGroup());
-    assertTrue(fakeBoard[5][1].isPartOfGroup());
-    assertTrue(fakeBoard[5][2].isPartOfGroup());
-    assertTrue(fakeBoard[5][3].isPartOfGroup());
-    assertTrue(fakeBoard[5][4].isPartOfGroup());
-    assertTrue(fakeBoard[5][5].isPartOfGroup());
-    assertTrue(fakeBoard[5][6].isPartOfGroup());
-    assertTrue(fakeBoard[5][7].isPartOfGroup());
-    assertTrue(fakeBoard[5][8].isPartOfGroup());
-    assertTrue(fakeBoard[4][0].isPartOfGroup());
-    assertTrue(fakeBoard[4][8].isPartOfGroup());
+    assertEquals(thirdId, fakeBoard[6][0].getGroupId());
+    assertEquals(thirdId, fakeBoard[6][1].getGroupId());
+    assertEquals(thirdId, fakeBoard[6][2].getGroupId());
+    assertEquals(thirdId, fakeBoard[6][3].getGroupId());
+    assertEquals(thirdId, fakeBoard[6][4].getGroupId());
+    assertEquals(thirdId, fakeBoard[6][5].getGroupId());
+    assertEquals(thirdId, fakeBoard[6][6].getGroupId());
+    assertEquals(thirdId, fakeBoard[6][7].getGroupId());
+    assertEquals(thirdId, fakeBoard[6][8].getGroupId());
   }
 
 
   @Test
-  public void blackGroupAlive() {
+  public void firstGroupAlive() {
     group.markGroups();
     assertTrue(group.isGroupAlive(fakeBoard[1][2].getGroupId()));
+  }
+
+  @Test
+  public void secondGroupAlive() {
+    group.markGroups();
+    assertTrue(group.isGroupAlive(fakeBoard[4][0].getGroupId()));
+  }
+
+  @Test
+  public void thirdGroupAlive() {
+    group.markGroups();
+    assertTrue(group.isGroupAlive(fakeBoard[6][0].getGroupId()));
   }
 
 }
