@@ -1,6 +1,7 @@
 package game.files.model;
 
 import game.files.service.LibertiesService;
+import java.util.HashSet;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
@@ -21,17 +22,20 @@ public class Group {
     this.libertiesService = new LibertiesService(gameBoard);
   }
 
-  public void markGroups() {
+  public HashSet<Integer> markGroups() {
     resetSelection();
+    HashSet<Integer> ids = new HashSet<>();
     int groupId = 1;
     for (int i = 0; i < boardHeight; i++) {
       for (int j = 0; j < boardHeight; j++) {
         if (gameBoard[i][j] != null && !gameBoard[i][j].isPartOfGroup()) {
           markGroup(i, j, groupId);
+          ids.add(groupId);
           groupId++;
         }
       }
     }
+    return ids;
   }
 
   private void markGroup(int row, int column, int groupId) {

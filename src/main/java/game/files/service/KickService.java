@@ -2,6 +2,7 @@ package game.files.service;
 
 import game.files.model.Group;
 import game.files.model.Stone;
+import java.util.HashSet;
 import lombok.Data;
 import org.springframework.stereotype.Service;
 
@@ -25,14 +26,11 @@ public class KickService {
     this.group = new Group(gameBoard);
   }
 
-  void markGroups() {
-    group.markGroups();
-  }
-
   public Stone[][] kickAllDeadGroups(int row, int column) {
-    markGroups();
+    //markGroups();
+    HashSet<Integer> ids = group.markGroups();
     kickAdjacentDeadGroups(row, column);
-    kickDeadGroupsByOrder();
+    kickDeadGroupsByOrder(ids);
     return gameBoard;
   }
 
@@ -73,10 +71,19 @@ public class KickService {
     return false;
   }
 
-  void kickDeadGroupsByOrder() {
+  void kickDeadGroupsByOrder(HashSet<Integer> ids) {
+    /* Kicks stones from left to right, top to bottom
+     * Only checks if group is dead once for every group
+     */
     for (int i = 0; i < boardHeight; i++) {
       for (int j = 0; j < boardHeight; j++) {
-        kickGroupIfDead(i, j);
+        if (gameBoard[i][j] != null) {
+          int id = gameBoard[i][j].getGroupId();
+          if (ids.contains(id)) {
+            kickGroupIfDead(i, j);
+            ids.remove(id);
+          }
+        }
       }
     }
   }
@@ -108,5 +115,9 @@ public class KickService {
 
   private void removeStone(int row, int column) {
     gameBoard[row][column] = null;
+  }
+
+  HashSet<Integer> markGroups() {
+    return group.markGroups();
   }
 }
