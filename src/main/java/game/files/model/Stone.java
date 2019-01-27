@@ -9,6 +9,7 @@ public class Stone {
 
   private boolean isWhite;
   public boolean isPartOfGroup = false;
+  private int groupId;
 
   public Stone() {
 

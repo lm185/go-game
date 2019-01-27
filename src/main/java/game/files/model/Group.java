@@ -21,25 +21,41 @@ public class Group {
     this.libertiesService = new LibertiesService(gameBoard);
   }
 
-  public void findGroup(int row, int column) {
+  public void markGroups() {
+    resetSelection();
+    int groupId = 1;
+    for (int i = 0; i < boardHeight; i++) {
+      for (int j = 0; j < boardHeight; j++) {
+        if (gameBoard[i][j] != null && !gameBoard[i][j].isPartOfGroup) {
+          markGroup(i, j, groupId);
+          groupId++;
+        }
+      }
+    }
+  }
+
+  private void markGroup(int row, int column, int groupId) {
+    // Marks group at given row and column, assigns the stones a group id
     if (gameBoard[row][column] == null) {
       return;
     }
     gameBoard[row][column].setPartOfGroup(true);
+    gameBoard[row][column].setGroupId(groupId);
+
     boolean isGroupWhite = gameBoard[row][column].isStoneWhite();
 
     /* If one of the adjacent stones has the same color recursively calls itself */
     if (isStonePartOfGroup(row - 1, column, isGroupWhite)) {
-      findGroup(row - 1, column);
+      markGroup(row - 1, column, groupId);
     }
     if (isStonePartOfGroup(row + 1, column, isGroupWhite)) {
-      findGroup(row + 1, column);
+      markGroup(row + 1, column, groupId);
     }
     if (isStonePartOfGroup(row, column - 1, isGroupWhite)) {
-      findGroup(row, column - 1);
+      markGroup(row, column - 1, groupId);
     }
     if (isStonePartOfGroup(row, column + 1, isGroupWhite)) {
-      findGroup(row, column + 1);
+      markGroup(row, column + 1, groupId);
     }
   }
 
@@ -52,13 +68,13 @@ public class Group {
     }
   }
 
-  public boolean isGroupAlive() {
+  public boolean isGroupAlive(int groupId) {
     int libertiesGroup = 0;
     int connectionsGroup = 0;
 
     for (int i = 0; i < boardHeight; i++) {
       for (int j = 0; j < boardHeight; j++) {
-        if (gameBoard[i][j] != null && gameBoard[i][j].isPartOfGroup) {
+        if (gameBoard[i][j] != null && gameBoard[i][j].getGroupId() == groupId) {
           libertiesGroup += libertiesService.findLibertiesForStone(i, j);
           connectionsGroup += libertiesService.findConnectionsForStone(i, j);
         }
@@ -67,7 +83,7 @@ public class Group {
     return libertiesGroup - connectionsGroup != 0;
   }
 
-  public void resetSelection() {
+  private void resetSelection() {
     for (int i = 0; i < boardHeight; i++) {
       for (int j = 0; j < boardHeight; j++) {
         if (gameBoard[i][j] != null) {
@@ -76,4 +92,5 @@ public class Group {
       }
     }
   }
+
 }

@@ -86,7 +86,7 @@ public class Board {
 
   private void kick(int row, int column) {
     KickService kickService = new KickService(copyBoard());
-    setGameBoard(kickService.removeDeadGroups(row, column));
+    setGameBoard(kickService.kickAllDeadGroups(row, column));
 
     pointsWhite += kickService.getPointsWhite();
     pointsBlack += kickService.getPointsBlack();

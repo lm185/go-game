@@ -20,7 +20,7 @@ public class RulesService {
     testBoard[playedRow][playedColumn] = new Stone(isWhite);
 
     KickService kickService = new KickService(testBoard);
-    kickService.removeDeadGroups(playedRow, playedColumn);
+    kickService.kickAllDeadGroups(playedRow, playedColumn);
 
     return testBoard[playedRow][playedColumn] == null;
   }
