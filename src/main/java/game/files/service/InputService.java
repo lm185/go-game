@@ -30,7 +30,7 @@ public class InputService {
     }
 
     // Checks if the player actually wants to make a move or pass
-    if (input.toLowerCase().equals("pass")) {
+    if (input.equalsIgnoreCase("pass")) {
       return -1337;
     }
     if (input.matches("^[0-9]*$")) {

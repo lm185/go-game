@@ -3,6 +3,7 @@ package game.files.service;
 import game.files.model.Group;
 import game.files.model.Stone;
 import java.util.HashSet;
+import java.util.Set;
 import lombok.Data;
 import org.springframework.stereotype.Service;
 
@@ -27,8 +28,7 @@ public class KickService {
   }
 
   public Stone[][] kickAllDeadGroups(int row, int column) {
-    //markGroups();
-    HashSet<Integer> ids = group.markGroups();
+    Set<Integer> ids = group.markGroups();
     kickAdjacentDeadGroups(row, column);
     kickDeadGroupsByOrder(ids);
     return gameBoard;
@@ -71,7 +71,7 @@ public class KickService {
     return false;
   }
 
-  void kickDeadGroupsByOrder(HashSet<Integer> ids) {
+  void kickDeadGroupsByOrder(Set<Integer> ids) {
     /* Kicks stones from left to right, top to bottom
      * Only checks if group is dead once for every group
      */
@@ -117,7 +117,7 @@ public class KickService {
     gameBoard[row][column] = null;
   }
 
-  HashSet<Integer> markGroups() {
+  Set<Integer> markGroups() {
     return group.markGroups();
   }
 }

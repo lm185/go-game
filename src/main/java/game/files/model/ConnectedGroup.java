@@ -1,8 +1,8 @@
 package game.files.model;
 
 import game.files.service.RulesService;
-import game.files.service.TerritoryService;
 import java.util.HashSet;
+import java.util.Set;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ConnectedGroup {
 
-  private HashSet<Integer> ids;
+  private Set<Integer> ids;
   private boolean isWhite;
   private int eyes;
   private int eyeLikes;
@@ -20,12 +20,13 @@ public class ConnectedGroup {
   public ConnectedGroup() {
 
   }
-  private void calculateIds(int groupId){
+
+  private void calculateIds(int groupId) {
     this.ids = new HashSet<>();
     //TODO
   }
 
-  public ConnectedGroup(HashSet<Integer> ids, boolean isWhite, Stone[][] gameBoard) {
+  public ConnectedGroup(Set<Integer> ids, boolean isWhite, Stone[][] gameBoard) {
     this.ids = ids;
     this.isWhite = isWhite;
     this.gameBoard = gameBoard;
@@ -39,10 +40,8 @@ public class ConnectedGroup {
     RulesService rulesService = new RulesService(gameBoard);
     for (int i = 0; i < gameBoard.length; i++) {
       for (int j = 0; j < gameBoard.length; j++) {
-        if (this.enclosedFields[i][j]) {
-          if (rulesService.doesStoneDie(i, j, isWhite)) {
-            eyes++;
-          }
+        if (this.enclosedFields[i][j] && rulesService.doesStoneDie(i, j, isWhite)) {
+          eyes++;
         }
       }
     }
