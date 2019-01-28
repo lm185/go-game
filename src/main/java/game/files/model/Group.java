@@ -23,6 +23,7 @@ public class Group {
   }
 
   public HashSet<Integer> markGroups() {
+    // Gives every group a unique id and returns a Set of them
     resetSelection();
     HashSet<Integer> ids = new HashSet<>();
     int groupId = 1;

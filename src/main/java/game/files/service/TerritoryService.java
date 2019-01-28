@@ -26,6 +26,25 @@ public class TerritoryService {
     this.isTerritoryBorder = new boolean[boardHeight][boardHeight];
   }
 
+  public boolean[][] findTerritory(int i, int j) {
+    markTerritory(i, j);
+    if (isTerritoryWhite() || isTerritoryBlack()) {
+      return isPartOfMarkedTerritory;
+    }
+    return new boolean[boardHeight][boardHeight];
+  }
+
+  public int borderId() {
+    for (int i = 0; i < isTerritoryBorder.length; i++) {
+      for (int j = 0; j < isTerritoryBorder.length; j++) {
+        if (isTerritoryBorder[i][j]) {
+          return gameBoard[i][j].getGroupId();
+        }
+      }
+    }
+    return -1;
+  }
+
   public int getPointsWhite() {
     resetIsFieldCounted();
     int pointsWhite = 0;
@@ -172,10 +191,7 @@ public class TerritoryService {
       }
     }
   }
-
-  boolean[][] getIsTerritoryBorder() {
-    return isTerritoryBorder;
-  }
+//TODO CLEANUP
 
   boolean[][] getIsPartOfMarkedTerritory() {
     return isPartOfMarkedTerritory;
