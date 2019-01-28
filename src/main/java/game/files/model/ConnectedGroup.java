@@ -20,6 +20,10 @@ public class ConnectedGroup {
   public ConnectedGroup() {
 
   }
+  private void calculateIds(int groupId){
+    this.ids = new HashSet<>();
+    //TODO
+  }
 
   public ConnectedGroup(HashSet<Integer> ids, boolean isWhite, Stone[][] gameBoard) {
     this.ids = ids;
