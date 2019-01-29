@@ -1,30 +1,31 @@
 language: java
-jdk: 
-    - oraclejdk8
-    - openjdk8
-
-branches:
-  only:
-    - master
-    - dev
-    - trav
-
+sudo: false
+install: true
+jdk:
+- oraclejdk8
+- openjdk8A
 addons:
   apt:
     packages:
-      - oracle-java8-installer
-
+    - oracle-java8-installer
+script:
+    - ./gradlew sonarqube
+branches:
+  only:
+  - master
+  - dev
+  - trav
 before_cache:
-  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+- rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 cache:
   directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
-
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
 after_failure:
-    - echo $TRAVIS_TEST_RESULT
-
+- echo $TRAVIS_TEST_RESULT
 notifications:
-    email: false
-
+  email: false
+env:
+  global:
+    secure: VEWr9lOXzsvla0MsYyKqi8sunMJXYm05qOQxxj0Y+Iev3mjfz15u2cOifa7Nm1UnOFIwmY8zm79A9vgauggWk2d8pSbhTDV4tVu1LBE12644RoaQHxnB9N0e5a5I8dks6wePdOfWjCh5qbYDEHopDCwKy5fD37AsNcRZPHi0pw5teuk41rfr2nvrSpaFJSnCwu8Eg5jWlIHVQjhqQAWpscIx03fxTFohIV1B44GN0ZM2NNYkW6VI/I676YPM31pBEqqB8LFeknB7DbQu7OceIwt02xuXKN9qvaWVzYIVaZ7HFDGrVAK/p0UJdoF0KnX47d/TQBTmG3ubqeB1OsIWiOYBBr8lVzi+bYBNm6ho6gqsj73LuyGSSVSRULvKLedv3gJHIQCd0q9AdqOX5buCiVznuWeIPdKOHciKaN9XfIghzvZ4cYZAWvpgJY8nk95r4TIsr9/YhCHNd+MxSbr3ZcQn41VUUHg1xzcgcX83hV4VCWndxrzgVI2+M0Q85rNDiiBCwF3KHbD/vUZ6/CFqslffDPaq79M7jAYwPHYQ60ieC4pkFXkdPfMsQlozVdSrdd4hAFhsV9S+f6zledW7BtFpvMMAOkJGzvy+dbPpWMdj9QTvI8OlFHifS6WVcAfZC8MXCDzHiDF1RUZTwIhoiO+150opgrF0yPqYIR0tw3I=
