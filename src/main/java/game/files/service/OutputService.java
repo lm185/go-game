@@ -6,8 +6,43 @@ import org.springframework.stereotype.Service;
 @Service
 public class OutputService {
 
+  private OutputService() {
+    throw new IllegalStateException("Utility class");
+  }
+
   public static void draw(Stone[][] brett) {
     int boardHeight = brett.length;
+    pritRows(boardHeight);
+    for (int i = 0; i < boardHeight; i++) {
+      System.out.print(i); // Numbering of the columns
+      for (int j = 0; j < boardHeight; j++) {
+        printField(brett[i][j], j + 1 == boardHeight);
+      }
+      System.out.println();
+    }
+    System.out.print(" ");
+    for (int i = 0; i < boardHeight; i++) {
+      System.out.print(" ¯");
+    }
+    System.out.println();
+  }
+
+  private static void printField(Stone stone, boolean b) {
+    if (stone == null) {
+      System.out.print("| ");
+    }
+    if (stone != null && !stone.isStoneWhite()) {
+      System.out.print("|o"); // o for black
+    }
+    if (stone != null && stone.isStoneWhite()) {
+      System.out.print("|*"); // * for white
+    }
+    if (b) {
+      System.out.print("|");
+    }
+  }
+
+  private static void pritRows(int boardHeight) {
     System.out.print(" ");
     for (int i = 0; i < boardHeight; i++) { // Numbering of the rows
       System.out.print(" " + i);
@@ -16,29 +51,6 @@ public class OutputService {
     System.out.print(" ");
     for (int i = 0; i < boardHeight; i++) {
       System.out.print(" _");
-    }
-    System.out.println();
-    for (int i = 0; i < boardHeight; i++) {
-      System.out.print(i); // Numbering of the columns
-      for (int j = 0; j < boardHeight; j++) {
-        if (brett[i][j] == null) {
-          System.out.print("| ");
-        }
-        if (brett[i][j] != null && !brett[i][j].isStoneWhite()) {
-          System.out.print("|o"); // o for black
-        }
-        if (brett[i][j] != null && brett[i][j].isStoneWhite()) {
-          System.out.print("|*"); // * for white
-        }
-        if (j + 1 == boardHeight) {
-          System.out.print("|");
-        }
-      }
-      System.out.println();
-    }
-    System.out.print(" ");
-    for (int i = 0; i < boardHeight; i++) {
-      System.out.print(" ¯");
     }
     System.out.println();
   }

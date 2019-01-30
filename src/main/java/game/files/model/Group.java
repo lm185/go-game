@@ -2,6 +2,7 @@ package game.files.model;
 
 import game.files.service.LibertiesService;
 import java.util.HashSet;
+import java.util.Set;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
@@ -22,7 +23,7 @@ public class Group {
     this.libertiesService = new LibertiesService(gameBoard);
   }
 
-  public HashSet<Integer> markGroups() {
+  public Set<Integer> markGroups() {
     // Gives every group a unique id and returns a Set of them
     resetSelection();
     HashSet<Integer> ids = new HashSet<>();

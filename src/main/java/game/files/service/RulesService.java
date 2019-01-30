@@ -43,13 +43,10 @@ public class RulesService {
     for (int i = 0; i < gameBoard.length; i++) {
       for (int j = 0; j < gameBoard.length; j++) {
         if (previousStance[i][j] == null && gameBoard[i][j] != null
-            || previousStance[i][j] != null && gameBoard[i][j] == null) {
+            || previousStance[i][j] != null && gameBoard[i][j] == null
+            || previousStance[i][j] != null && gameBoard[i][j] != null
+            && previousStance[i][j].isWhite() != gameBoard[i][j].isWhite()) {
           return true;
-        }
-        if (previousStance[i][j] != null && gameBoard[i][j] != null) {
-          if (previousStance[i][j].isWhite() != gameBoard[i][j].isWhite()) {
-            return true;
-          }
         }
       }
     }
