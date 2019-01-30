@@ -3,7 +3,7 @@ sudo: false
 install: true
 jdk:
 - oraclejdk8
-- openjdk8A
+- openjdk8
 addons:
   apt:
     packages:
