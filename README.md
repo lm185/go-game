@@ -13,6 +13,6 @@ See [rules](https://en.wikipedia.org/wiki/Rules_of_Go) if you want to contribute
 -> See Projects
 
 ## Goals
-- [ ] Implement as a Spring Boot Application
-- [ ] Allow Users to play against each other
-- [ ] Create AI's of different Skill for Singleplayer
+- [x] Create the basic game
+- [ ] Implement best stochastic counting algorithm
+- [ ] Train Deep Learning Model on playing the game
