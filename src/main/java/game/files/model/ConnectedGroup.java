@@ -2,8 +2,11 @@ package game.files.model;
 
 import game.files.service.RulesService;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import lombok.Data;
 
@@ -32,21 +35,23 @@ public class ConnectedGroup {
     }
 
     private Set<Integer> calculateIds(int groupId) {
-        this.ids = new HashSet<>();
+        List<Integer> ids = new ArrayList<>();
         ids.add(groupId);
 
-        // TODO does for each work as expected? set uses new numbers
-        for (int currentGroupId : ids) {
+        for (int k = 0; k < ids.size(); k++) {
             for (int i = 0; i < boardHeight; i++) {
                 for (int j = 0; j < boardHeight; j++) {
                     if (gameBoard[i][j] != null) {
-                        ids.addAll(findConnectedIds(i, j, currentGroupId));
+                        for (int id : findConnectedIds(i, j, ids.get(k))) {
+                            if (!ids.contains(id)) {
+                                ids.add(id);
+                            }
+                        }
                     }
                 }
             }
         }
-
-        return ids;
+        return new HashSet<>(ids);
     }
 
     private Set<Integer> findConnectedIds(int i, int j, int groupId) {
