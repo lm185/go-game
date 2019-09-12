@@ -18,4 +18,18 @@ public class ConnectedGroupTest {
         assertThat(conGroup.getIds(), hasItems(1, 2));
     }
 
+    @Test
+    public void recognizesThreeGroups() {
+        Stone[][] fakeBoard = new Stone[9][9];
+        fakeBoard[0][0] = new Stone(true);
+        fakeBoard[0][0].setGroupId(1);
+        fakeBoard[1][1] = new Stone(true);
+        fakeBoard[1][1].setGroupId(2);
+        fakeBoard[2][2] = new Stone(true);
+        fakeBoard[2][2].setGroupId(3);
+
+        ConnectedGroup conGroup = new ConnectedGroup(1, true, fakeBoard);
+        assertThat(conGroup.getIds(), hasItems(1, 2, 3));
+    }
+
 }
