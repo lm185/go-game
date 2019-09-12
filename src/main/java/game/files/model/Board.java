@@ -116,14 +116,14 @@ public class Board {
     }
 
     public Stone[][] copyBoard() {
-        Stone[][] destination = new Stone[gameBoard.length][gameBoard.length];
+        Stone[][] copiedBoard = new Stone[gameBoard.length][gameBoard.length];
         for (int i = 0; i < gameBoard.length; i++) {
             for (int j = 0; j < gameBoard.length; j++) {
                 if (gameBoard[i][j] != null) {
-                    destination[i][j] = new Stone(gameBoard[i][j].isWhite());
+                    copiedBoard[i][j] = new Stone(gameBoard[i][j].isWhite());
                 }
             }
         }
-        return destination;
+        return copiedBoard;
     }
 }
