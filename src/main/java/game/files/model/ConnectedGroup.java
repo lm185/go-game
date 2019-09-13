@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import lombok.Data;
 
@@ -21,7 +20,7 @@ public class ConnectedGroup {
     private Stone[][] gameBoard;
     private int boardHeight;
 
-    //TODO avoid duplicates for connected groups
+    //TODO avoid duplicates for connected groups by comparing sets
     public ConnectedGroup() {
 
     }
