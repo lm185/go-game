@@ -11,7 +11,7 @@ This is a minimal Version of the Go board game. Because the board size is settab
 This might make it possible to try out various unsupervised learning models without the need for a Supercomputer.
 
 Currently the point evaluation is beeing adjusted to fit the best approximation when the both players pass.
-See [rules](https://en.wikipedia.org/wiki/Rules_of_Go) if you are not familiar with the rules of Go.
+See [rules](https://en.wikipedia.org/wiki/Rules_of_Go) if you are not familiar with Go.
 
 ## Challenges
 - [ ] Improve point evaluation accuracy at game end
