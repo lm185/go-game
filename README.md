@@ -1,18 +1,23 @@
-# GO Game
+# Go Game
 
-Simple GO-Game.
+## Goals
+- [x] Create the basic game
+- [ ] Implement Carta counting algorithm
+- [ ] Train Deep Learning Model on playing the game
 
-See [rules](https://en.wikipedia.org/wiki/Rules_of_Go) if you want to contribute.
+## What is this?
+
+This is a minimal Version of the Go board game. Because the board size is settable, the complexity can be reduced at will.
+This might make it possible to try out various unsupervised learning models without the need for a Supercomputer.
+
+Currently the point evaluation is beeing adjusted to fit the best approximation when the both players pass.
+See [rules](https://en.wikipedia.org/wiki/Rules_of_Go) if you are not familiar with Go.
 
 ## Challenges
-- [ ] Extend kick Algorithm for game end
+- [ ] Improve point evaluation accuracy at game end
   - This has shown to be far from trivial
   - [This paper](https://www.oipaz.net/Carta.pdf) seems to be the best solution so far and will be implemented
 
 ## Currently beeing worked on
 -> See Projects
 
-## Goals
-- [x] Create the basic game
-- [ ] Implement best stochastic counting algorithm
-- [ ] Train Deep Learning Model on playing the game
