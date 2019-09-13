@@ -11,16 +11,19 @@ import lombok.Data;
 
 @Data
 public class ConnectedGroup {
+    /*
+     * Is the collection of groups which are connected indirectly but definitely
+     * Ids contains all group ids which belong to the same connected group
+     */
 
     private Set<Integer> ids;
     private boolean isWhite;
     private int eyes;
     private int eyeLikes;
-    private boolean[][] enclosedFields;
+    private boolean[][] isTerritory;
     private Stone[][] gameBoard;
     private int boardHeight;
 
-    //TODO avoid duplicates for connected groups by comparing sets
     public ConnectedGroup() {
 
     }
@@ -30,7 +33,7 @@ public class ConnectedGroup {
         this.boardHeight = gameBoard.length;
         this.isWhite = isWhite;
         setIds(calculateIds(startGroupId));
-        // countEyes();
+        countEyes();
     }
 
     private Set<Integer> calculateIds(int groupId) {
@@ -52,11 +55,10 @@ public class ConnectedGroup {
     }
 
     private Set<Integer> findConnectedGroupIds(int i, int j, int groupId) {
+        Set<Integer> connectedGroupIds = new HashSet<>();
         if (gameBoard[i][j] == null || gameBoard[i][j].getGroupId() != groupId) {
             return new HashSet<>();
         }
-
-        Set<Integer> connectedGroupIds = new HashSet<>();
 
         if (isDiagonalFriend(i - 1, j - 1, groupId) &&
             isUpperFieldEmpty(i, j) && isLeftFieldEmpty(i, j)) {
@@ -90,11 +92,11 @@ public class ConnectedGroup {
 
     private void countEyes() {
         Territory territory = new Territory(gameBoard);
-        this.enclosedFields = territory.findTerritory(ids);
+        this.isTerritory = territory.findTerritory(ids);
         RulesService rulesService = new RulesService(gameBoard);
         for (int i = 0; i < gameBoard.length; i++) {
             for (int j = 0; j < gameBoard.length; j++) {
-                if (this.enclosedFields[i][j] && rulesService.doesStoneDie(i, j, isWhite)) {
+                if (isTerritory[i][j] && rulesService.doesStoneDie(i, j, !isWhite)) {
                     eyes++;
                 }
             }
