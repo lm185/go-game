@@ -28,70 +28,63 @@ public class ConnectedGroup {
     public ConnectedGroup(int startGroupId, boolean isWhite, Stone[][] gameBoard) {
         this.gameBoard = gameBoard;
         this.boardHeight = gameBoard.length;
-        this.ids = calculateIds(startGroupId);
         this.isWhite = isWhite;
+        setIds(calculateIds(startGroupId));
         // countEyes();
     }
 
     private Set<Integer> calculateIds(int groupId) {
-        List<Integer> ids = new ArrayList<>();
-        ids.add(groupId);
+        List<Integer> idsList = new ArrayList<>();
+        idsList.add(groupId);
 
-        for (int k = 0; k < ids.size(); k++) {
+        for (int k = 0; k < idsList.size(); k++) {
             for (int i = 0; i < boardHeight; i++) {
                 for (int j = 0; j < boardHeight; j++) {
-                    if (gameBoard[i][j] != null) {
-                        for (int id : findConnectedIds(i, j, ids.get(k))) {
-                            if (!ids.contains(id)) {
-                                ids.add(id);
-                            }
+                    for (int id : findConnectedGroupIds(i, j, idsList.get(k))) {
+                        if (!idsList.contains(id)) {
+                            idsList.add(id);
                         }
                     }
                 }
             }
         }
-        return new HashSet<>(ids);
+        return new HashSet<>(idsList);
     }
 
-    private Set<Integer> findConnectedIds(int i, int j, int groupId) {
-        boolean isGroupWhite = gameBoard[i][j].isStoneWhite();
-        Set<Integer> ids = new HashSet<>();
-
-        if (gameBoard[i][j] != null && gameBoard[i][j].getGroupId() == groupId) {
-            if (isDiagonalFriend(i - 1, j - 1, groupId, isGroupWhite)) {
-                if (gameBoard[i - 1][j] == null && gameBoard[i][j - 1] == null) {
-                    ids.add(gameBoard[i - 1][j - 1].getGroupId());
-                }
-            }
-            if (isDiagonalFriend(i - 1, j + 1, groupId, isGroupWhite)) {
-                if (gameBoard[i - 1][j] == null && gameBoard[i][j + 1] == null) {
-                    ids.add(gameBoard[i - 1][j + 1].getGroupId());
-                }
-            }
-            if (isDiagonalFriend(i + 1, j - 1, groupId, isGroupWhite)) {
-                if (gameBoard[i][j - 1] == null && gameBoard[i + 1][j] == null) {
-                    ids.add(gameBoard[i + 1][j - 1].getGroupId());
-                }
-            }
-            if (isDiagonalFriend(i + 1, j + 1, groupId, isGroupWhite)) {
-                if (gameBoard[i + 1][j] == null && gameBoard[i][j + 1] == null) {
-                    ids.add(gameBoard[i + 1][j + 1].getGroupId());
-                }
-            }
+    private Set<Integer> findConnectedGroupIds(int i, int j, int groupId) {
+        if (gameBoard[i][j] == null || gameBoard[i][j].getGroupId() != groupId) {
+            return new HashSet<>();
         }
-        return ids;
+
+        Set<Integer> connectedGroupIds = new HashSet<>();
+
+        if (isDiagonalFriend(i - 1, j - 1, groupId) &&
+            isUpperFieldEmpty(i, j) && isLeftFieldEmpty(i, j)) {
+            connectedGroupIds.add(gameBoard[i - 1][j - 1].getGroupId());
+        }
+        if (isDiagonalFriend(i - 1, j + 1, groupId) &&
+            isUpperFieldEmpty(i, j) && isRightFieldEmpty(i, j)) {
+            connectedGroupIds.add(gameBoard[i - 1][j + 1].getGroupId());
+        }
+        if (isDiagonalFriend(i + 1, j - 1, groupId) &&
+            isLeftFieldEmpty(i, j) && isLowerFieldEmpty(i, j)) {
+            connectedGroupIds.add(gameBoard[i + 1][j - 1].getGroupId());
+        }
+        if (isDiagonalFriend(i + 1, j + 1, groupId) &&
+            isRightFieldEmpty(i, j) && isLowerFieldEmpty(i, j)) {
+            connectedGroupIds.add(gameBoard[i + 1][j + 1].getGroupId());
+        }
+
+        return connectedGroupIds;
     }
 
-    private boolean isDiagonalFriend(int i, int j, int groupId, boolean isGroupWhite) {
+    private boolean isDiagonalFriend(int i, int j, int groupId) {
         try {
-            if (gameBoard[i][j] != null && gameBoard[i][j].isStoneWhite() == isGroupWhite
-                && gameBoard[i][j].getGroupId() != groupId) {
-                return true;
-            }
+            return gameBoard[i][j] != null && gameBoard[i][j].isStoneWhite() == this.isWhite()
+                && gameBoard[i][j].getGroupId() != groupId;
         } catch (ArrayIndexOutOfBoundsException e) {
             return false;
         }
-        return false;
     }
 
 
@@ -108,4 +101,20 @@ public class ConnectedGroup {
         }
     }
 
+
+    private boolean isUpperFieldEmpty(int i, int j) {
+        return gameBoard[i - 1][j] == null;
+    }
+
+    private boolean isLowerFieldEmpty(int i, int j) {
+        return gameBoard[i + 1][j] == null;
+    }
+
+    private boolean isLeftFieldEmpty(int i, int j) {
+        return gameBoard[i][j - 1] == null;
+    }
+
+    private boolean isRightFieldEmpty(int i, int j) {
+        return gameBoard[i][j + 1] == null;
+    }
 }
