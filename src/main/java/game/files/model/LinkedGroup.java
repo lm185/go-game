@@ -54,14 +54,13 @@ public class LinkedGroup {
 
     private void addGroupsByHalfConnectionPoints() {
         List<Integer> idList = new ArrayList<>(this.ids);
-        Map<Integer, Integer> groupHCPointsMap = new HashMap<>();
-
 
         for (int group = 0; group < idList.size(); group++) {
+            Map<Integer, Integer> groupHCPointsMap = new HashMap<>();
+            
             for (int row = 0; row < boardHeight; row++) {
                 for (int column = 0; column < boardHeight; column++) {
                     updateHCPointsMap(idList, groupHCPointsMap, group, row, column);
-                    groupHCPointsMap.forEach((key, value) -> System.out.println(key + " " + value));
                     updateIdList(idList, groupHCPointsMap);
                 }
             }
@@ -99,7 +98,7 @@ public class LinkedGroup {
                                        Map<Integer, Integer> groupConnectionCount) {
         if (isFieldFriend(row - 2, column) && isFieldEmpty(row - 1, column)) {
             int fieldId = getGroupId(row - 2, column);
-            groupConnectionCount.put(fieldId, groupConnectionCount.getOrDefault(fieldId, 1));
+            groupConnectionCount.put(fieldId, groupConnectionCount.getOrDefault(fieldId, 0) + 1);
         }
         if (isFieldFriend(row + 2, column) && isFieldEmpty(row + 1, column)) {
             int fieldId = getGroupId(row + 2, column);
