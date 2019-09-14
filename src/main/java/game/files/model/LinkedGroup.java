@@ -57,7 +57,7 @@ public class LinkedGroup {
 
         for (int group = 0; group < idList.size(); group++) {
             Map<Integer, Integer> groupHCPointsMap = new HashMap<>();
-            
+
             for (int row = 0; row < boardHeight; row++) {
                 for (int column = 0; column < boardHeight; column++) {
                     updateHCPointsMap(idList, groupHCPointsMap, group, row, column);
