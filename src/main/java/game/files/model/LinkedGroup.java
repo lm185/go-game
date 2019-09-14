@@ -5,7 +5,7 @@ import java.util.*;
 import lombok.Data;
 
 @Data
-public class ConnectedGroup {
+public class LinkedGroup {
     /*
      * Is the collection of groups which are connected indirectly but definitely
      * Ids contains all group ids which belong to the same connected group
@@ -17,11 +17,11 @@ public class ConnectedGroup {
     private Set<Integer> ids;
     private boolean isWhite;
 
-    public ConnectedGroup() {
+    public LinkedGroup() {
 
     }
 
-    public ConnectedGroup(int startGroupId, boolean isWhite, Stone[][] gameBoard) {
+    public LinkedGroup(int startGroupId, boolean isWhite, Stone[][] gameBoard) {
         this.gameBoard = gameBoard;
         this.boardHeight = gameBoard.length;
         this.isWhite = isWhite;
@@ -134,7 +134,7 @@ public class ConnectedGroup {
 
     private boolean isFieldFriend(int row, int column) {
         try {
-            return !isFieldEmpty(row, column) && isSameColorAsGroup(row, column);
+            return !isFieldEmpty(row, column) && isSameColorAsLinkedGroup(row, column);
         } catch (ArrayIndexOutOfBoundsException e) {
             return false;
         }
@@ -148,7 +148,7 @@ public class ConnectedGroup {
         }
     }
 
-    private boolean isSameColorAsGroup(int row, int column) {
+    private boolean isSameColorAsLinkedGroup(int row, int column) {
         return gameBoard[row][column].isStoneWhite() == this.isWhite();
     }
 

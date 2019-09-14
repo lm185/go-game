@@ -5,7 +5,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 
-public class ConnectedGroupTest {
+public class LinkedGroupTest {
 
     @Test
     public void twoGroupsDiagonalConnected_pos1() {
@@ -14,7 +14,7 @@ public class ConnectedGroupTest {
         fakeBoard[0][0].setGroupId(1);
         fakeBoard[1][1] = new Stone(true);
         fakeBoard[1][1].setGroupId(2);
-        ConnectedGroup conGroup = new ConnectedGroup(1, true, fakeBoard);
+        LinkedGroup conGroup = new LinkedGroup(1, true, fakeBoard);
         assertThat(conGroup.getIds(), hasItems(1, 2));
     }
 
@@ -25,7 +25,7 @@ public class ConnectedGroupTest {
         fakeBoard[3][3].setGroupId(1);
         fakeBoard[4][2] = new Stone(true);
         fakeBoard[4][2].setGroupId(2);
-        ConnectedGroup conGroup = new ConnectedGroup(1, true, fakeBoard);
+        LinkedGroup conGroup = new LinkedGroup(1, true, fakeBoard);
         assertThat(conGroup.getIds(), hasItems(1, 2));
     }
 
@@ -39,7 +39,7 @@ public class ConnectedGroupTest {
         fakeBoard[2][2] = new Stone(true);
         fakeBoard[2][2].setGroupId(3);
 
-        ConnectedGroup conGroup = new ConnectedGroup(1, true, fakeBoard);
+        LinkedGroup conGroup = new LinkedGroup(1, true, fakeBoard);
         assertThat(conGroup.getIds(), hasItems(1, 2, 3));
     }
 
@@ -52,7 +52,7 @@ public class ConnectedGroupTest {
         fakeBoard[1][0].setGroupId(7);
         fakeBoard[1][1] = new Stone(true);
         fakeBoard[1][1].setGroupId(2);
-        ConnectedGroup conGroup = new ConnectedGroup(1, true, fakeBoard);
+        LinkedGroup conGroup = new LinkedGroup(1, true, fakeBoard);
         assertThat(conGroup.getIds(), hasItems(1));
     }
 
