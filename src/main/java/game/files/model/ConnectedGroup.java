@@ -1,9 +1,6 @@
 package game.files.model;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import lombok.Data;
 
@@ -46,17 +43,43 @@ public class ConnectedGroup {
 
     }
 
-    private Set<Integer> findHalfConnectionPoints(int i, int j, int groupId) {
-        if (isFieldEmpty(i, j) || !sameGroup(i, j, groupId)) {
+    private int getGroupId(int row, int column) {
+        return gameBoard[row][column].getGroupId();
+    }
+
+    private Set<Integer> findHalfConnectionPoints(int row, int column, int groupId) {
+        if (isFieldEmpty(row, column) || !hasSameId(row, column, groupId)) {
             return new HashSet<>();
         }
 
         Set<Integer> groupIds = new HashSet<>();
+        Map<Integer, Integer> groupConnectionCount = new HashMap<>();
 
-        if (isDiagonalSameColor(i - 1, j - 1, groupId) &&
-            isFieldEmpty(i - 1, j) && isFieldEmpty(i, j - 1)) {
-            groupIds.add(gameBoard[i - 1][j - 1].getGroupId());
+        if (isFieldFriend(row - 1, column - 1) &&
+            (isFieldEmpty(row - 1, column) || isFieldEmpty(row, column - 1))) {
+            int fieldId = getGroupId(row - 1, column - 1);
+            groupConnectionCount.put(fieldId, groupConnectionCount.getOrDefault(fieldId, 1));
         }
+
+        if (isFieldFriend(row - 1, column + 1) &&
+            (isFieldEmpty(row - 1, column) || isFieldEmpty(row, column + 1))) {
+            int fieldId = getGroupId(row - 1, column + 1);
+            groupConnectionCount.put(fieldId, groupConnectionCount.getOrDefault(fieldId, 1));
+        }
+
+        if (isFieldFriend(row + 1, column - 1) &&
+            (isFieldEmpty(row + 1, column) || isFieldEmpty(row, column - 1))) {
+            int fieldId = getGroupId(row + 1, column - 1);
+            groupConnectionCount.put(fieldId, groupConnectionCount.getOrDefault(fieldId, 1));
+        }
+
+        if (isFieldFriend(row + 1, column + 1) &&
+            (isFieldEmpty(row + 1, column) || isFieldEmpty(row, column + 1))) {
+            int fieldId = getGroupId(row + 1, column + 1);
+            groupConnectionCount.put(fieldId, groupConnectionCount.getOrDefault(fieldId, 1));
+        }
+
+
         return groupIds;
     }
 
@@ -64,10 +87,10 @@ public class ConnectedGroup {
     private void addGroupsByFullConnectionPoints() {
         List<Integer> idsList = new ArrayList<>(this.ids);
 
-        for (int k = 0; k < idsList.size(); k++) {
-            for (int i = 0; i < boardHeight; i++) {
-                for (int j = 0; j < boardHeight; j++) {
-                    for (int id : findFullConnectionPoints(i, j, idsList.get(k))) {
+        for (int i = 0; i < idsList.size(); i++) {
+            for (int row = 0; row < boardHeight; row++) {
+                for (int column = 0; column < boardHeight; column++) {
+                    for (int id : findIdsFullConnectionPoints(row, column, idsList.get(i))) {
                         if (!idsList.contains(id)) {
                             idsList.add(id);
                         }
@@ -78,48 +101,55 @@ public class ConnectedGroup {
         this.ids.addAll(idsList);
     }
 
-    private Set<Integer> findFullConnectionPoints(int i, int j, int groupId) {
-        if (gameBoard[i][j] == null || gameBoard[i][j].getGroupId() != groupId) {
+    private Set<Integer> findIdsFullConnectionPoints(int row, int column, int groupId) {
+        if (gameBoard[row][column] == null || gameBoard[row][column].getGroupId() != groupId) {
             return new HashSet<>();
         }
 
         Set<Integer> groupIds = new HashSet<>();
-        if (isDiagonalSameColor(i - 1, j - 1, groupId) &&
-            isFieldEmpty(i - 1, j) && isFieldEmpty(i, j - 1)) {
-            groupIds.add(gameBoard[i - 1][j - 1].getGroupId());
+        if (isFieldFriend(row - 1, column - 1) &&
+            !hasSameId(row - 1, column - 1, groupId) &&
+            isFieldEmpty(row - 1, column) && isFieldEmpty(row, column - 1)) {
+            groupIds.add(gameBoard[row - 1][column - 1].getGroupId());
         }
-        if (isDiagonalSameColor(i - 1, j + 1, groupId) &&
-            isFieldEmpty(i - 1, j) && isFieldEmpty(i, j + 1)) {
-            groupIds.add(gameBoard[i - 1][j + 1].getGroupId());
+        if (isFieldFriend(row - 1, column + 1) &&
+            !hasSameId(row - 1, column + 1, groupId) &&
+            isFieldEmpty(row - 1, column) && isFieldEmpty(row, column + 1)) {
+            groupIds.add(gameBoard[row - 1][column + 1].getGroupId());
         }
-        if (isDiagonalSameColor(i + 1, j - 1, groupId) &&
-            isFieldEmpty(i, j - 1) && isFieldEmpty(i + 1, j)) {
-            groupIds.add(gameBoard[i + 1][j - 1].getGroupId());
+        if (isFieldFriend(row + 1, column - 1) &&
+            !hasSameId(row + 1, column - 1, groupId) &&
+            isFieldEmpty(row, column - 1) && isFieldEmpty(row + 1, column)) {
+            groupIds.add(gameBoard[row + 1][column - 1].getGroupId());
         }
-        if (isDiagonalSameColor(i + 1, j + 1, groupId) &&
-            isFieldEmpty(i, j + 1) && isFieldEmpty(i + 1, j)) {
-            groupIds.add(gameBoard[i + 1][j + 1].getGroupId());
+        if (isFieldFriend(row + 1, column + 1) &&
+            !hasSameId(row + 1, column + 1, groupId) &&
+            isFieldEmpty(row, column + 1) && isFieldEmpty(row + 1, column)) {
+            groupIds.add(gameBoard[row + 1][column + 1].getGroupId());
         }
 
         return groupIds;
     }
 
 
-    private boolean isDiagonalSameColor(int i, int j, int groupId) {
+    private boolean isFieldFriend(int row, int column) {
         try {
-            return !isFieldEmpty(i, j) && isSameColorAsGroup(i, j)
-                && !sameGroup(i, j, groupId);
+            return !isFieldEmpty(row, column) && isSameColorAsGroup(row, column);
         } catch (ArrayIndexOutOfBoundsException e) {
             return false;
         }
     }
 
-    private boolean sameGroup(int i, int j, int groupId) {
-        return gameBoard[i][j].getGroupId() == groupId;
+    private boolean hasSameId(int row, int column, int groupId) {
+        try {
+            return gameBoard[row][column].getGroupId() == groupId;
+        } catch (ArrayIndexOutOfBoundsException ignored) {
+            return false;
+        }
     }
 
-    private boolean isSameColorAsGroup(int i, int j) {
-        return gameBoard[i][j].isStoneWhite() == this.isWhite();
+    private boolean isSameColorAsGroup(int row, int column) {
+        return gameBoard[row][column].isStoneWhite() == this.isWhite();
     }
 
     private boolean isFieldEmpty(int i, int j) {
