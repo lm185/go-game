@@ -2,6 +2,7 @@ package game.files.model;
 
 import java.util.*;
 
+
 import lombok.Data;
 
 @Data
@@ -30,12 +31,21 @@ public class LinkedGroup {
         calculateIds(startGroupId);
     }
 
+    /* Finds the Ids of connected Groups by Full Connection Point and Half Connection Point
+     * Repeat if any new groups are added to the Linked Group
+     */
     private void calculateIds(int groupId) {
         this.ids = new HashSet<>();
         this.ids.add(groupId);
 
-        addGroupsByFullConnectionPoints();
-        addGroupsByHalfConnectionPoints();
+        Set<Integer> oldIds = new HashSet<>();
+
+        while (!oldIds.containsAll(this.ids)) {
+            oldIds = this.ids;
+            addGroupsByFullConnectionPoints();
+            addGroupsByHalfConnectionPoints();
+        }
+
 
     }
 
