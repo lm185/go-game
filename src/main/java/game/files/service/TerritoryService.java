@@ -24,8 +24,8 @@ public class TerritoryService {
         this.isTerritoryBorder = new boolean[boardHeight][boardHeight];
     }
 
-    public boolean[][] findTerritory(int i, int j) {
-        markTerritory(i, j);
+    public boolean[][] findTerritory(int row, int column) {
+        markTerritory(row, column);
         if (isTerritoryWhite() || isTerritoryBlack()) {
             return isPartOfMarkedTerritory;
         }
